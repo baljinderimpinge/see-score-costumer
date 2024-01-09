@@ -7,6 +7,8 @@ import LoginButton from './components/Button/LoginButton';
 import LogoutButton from './components/Button/LogoutButton';
 import { Dashboard } from './pages/Dashboard';
 import AuthenticatedRoute from './HOC/priveteRoures';  // Correct the import path
+import Insurance from './pages/Insurance';
+import MicrosoftLoing from './pages/Login/microsoftLoing';
 
 function App() {
   return (
@@ -15,11 +17,15 @@ function App() {
         <Routes>
           <Route path="/" element={<LoginButton />} />
           <Route element={<AuthenticatedRoute />}>
-            <Route path="/Dashboard" element={<Dashboard />} />
+          <Route path="/microsoftLoing" element={<MicrosoftLoing />} />
+
+            <Route path="/Dashboard/:tenatId" element={<Dashboard />} />
+            <Route path="/Insurance" element={<Insurance />} />
+
           </Route>
         </Routes>
       </BrowserRouter>
-<LogoutButton/>
+      {/* <LogoutButton /> */}
     </React.Fragment>
   );
 }
