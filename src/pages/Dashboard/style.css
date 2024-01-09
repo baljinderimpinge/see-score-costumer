@@ -1,0 +1,97 @@
+body{background-color: #F8FAFB; font-family: 'Red Hat Display', sans-serif; color:#1E2332; font-weight: 700;}
+.container{max-width: 1000px;}
+
+h1,h2,h3,h4,h5,h6{font-weight: 700;}
+h1{font-size: 30px; color:#3C445D;}
+h2{font-size: 22px;}
+p{font-size: 14px;}
+.border-radius-15{border-radius: 15px;}
+.border-radius-30{border-radius: 30px;}
+.text-primary{color:#3FBEB7!important;}
+.bg-primary{background-color: #9BDCD9!important;}
+
+.btn{border-radius: 100px; font-size: 18px; font-weight: 700; line-height: 1.2; padding: .375rem 1.1rem; box-shadow: none; outline: none; border:0;}
+.btn-primary{background-color: #3FBEB7;}
+.btn-primary:active:focus, .btn:hover, .btn:active, .btn:focus{background-color: #000; box-shadow: none; outline: none;}
+
+.divider{height: 1px; background-color: #289791; display: block; width: 100%;}
+
+.readmore a{font-size: 15px; font-weight: 500; color:#12403D; text-decoration: none;}
+.readmore a i{font-size: 12px;}
+.readmore a:hover{color: #000;}
+
+.ptb-110{padding: 110px 0;}
+ul li{margin-bottom: 12px; font-size: 15px; color:#33363F;}
+
+.chain{position: absolute; right:126px; top:0;}
+
+header{background-color: #1E2332; margin-top: 134px; height: 197px; display: flex; align-items: center; justify-content: center;}
+header .dropdown{position: absolute; right:60px;}
+header .dropdown .btn{font-weight: 500; height:43px; width: 239px; background-color: #FFFFFF; position: relative; z-index: 2; font-size: 14px;}
+.dropdown-toggle::after{content:"\f078"; font-family: "Font Awesome 6 Free"; font-weight: 900; border:0; vertical-align: initial; color:#3FBEB7; font-size: 14px;}
+.dropdown-menu{background-color: #9BDCD9; width:100%; margin-top:-30px!important; z-index: 1; padding:55px 30px 30px 30px; border-radius: 15px;}
+.dropdown-item{font-weight: 700; color: #000; display: flex;    gap: 10px; padding: 8px 0;}
+.dropdown-item:hover{background-color: transparent; color: #fff;}
+.dropdown-item:hover img{filter: brightness(100);}
+
+.addition{margin-top: 50px; display: flex; gap: 7px; align-items: center; flex-wrap: wrap;}
+.addition a{border:1px solid #3FBEB7; text-decoration: none; border-radius: 100px; padding:3px 20px; color:#28827D; font-size: 18px;}
+.addition a:hover{background-color: #3FBEB7; color:#fff;}
+.addition a:hover img{filter: brightness(100);}
+
+.open-risk{padding: 36px 42px; margin-top: 70px; font-weight: 400;}
+
+/* .risk li{background-image: url(../images/risk-icon.svg); background-repeat: no-repeat; background-position: left center; padding-left: 40px;} */
+.risk li:last-child{margin-bottom: 0;}
+
+.percentage-num{font-size: 60px; font-weight: 900; line-height: 60px;}
+.percentage-num sub{font-size: 30px; bottom: 0;}
+
+.score-main{display: flex; gap:35px; flex-wrap: wrap;}
+.score{padding: 50px 60px; display: flex; align-items: center; justify-content: center; flex-wrap: wrap;}
+.score-number{text-align: center;}
+
+.first-score{max-width: 390px; width: 100%;}
+.first-score .percentage-num{font-size: 90px; font-weight: 900; line-height: 90px;}
+.first-score .percentage-num sub{font-size: 50px; bottom: 0;}
+.second-score{display: grid; grid-template-columns:1fr 1fr; column-gap:35px; row-gap: 20px; flex:1;}
+.second-score .last{ grid-column: 1 / -1; padding-left: 0; padding-right: 0;}
+.second-score .last .score-number{display: grid; grid-template-columns: 1fr 1fr; gap:35px; align-items: center; width: 100%;}
+
+.first-score .divider{margin: 35px 0;}
+
+.information{padding:32px 42px; margin-top: 30px;}
+.information h5{margin-bottom: 30px;}
+.information p{margin-bottom: 20px;}
+.submit-btn{margin-top: 60px;}
+
+footer{background-color: #9BDCD9; min-height: 47px; margin-top: 200px;}
+
+/**********************responsive***********************/
+
+@media only screen and (max-width: 1023px) {
+    header{justify-content: space-between;}
+    header .dropdown{right:12px;}
+    .chain{right:82px}
+    .score-main, .second-score{gap:24px;}
+    .score{padding:30px 15px;}
+    .percentage-num{font-size: 40px;}
+    .first-score .percentage-num{font-size: 60px;}
+    .first-score .percentage-num sub{font-size: 30px;}
+    .information{padding: 15px;}
+}
+
+@media only screen and (max-width: 767px) {
+    header{justify-content: center; flex-wrap: wrap; margin-top: 0; align-content: center; row-gap: 20px;}
+    header .dropdown{position: relative;}
+    nav{width:100%; text-align: center;}
+    .chain{display: none;}
+    .ptb-110{padding:30px 0;}
+    .addition{margin-top: 30px;}
+    .first-score{max-width: 100%;}
+    .second-score{grid-template-columns: 1fr;}
+    .second-score .last .score-number{grid-template-columns: 1fr; gap:0;}
+    .open-risk{margin-top: 30px; padding: 30px;}
+    footer{margin-top: 30px;}
+    .submit-btn{margin-top: 30px;}
+}
