@@ -34,9 +34,14 @@ const LoginButton = () => {
         return;
       }
       try {
+        if(localStorage.getItem("token")){
+          console.log("llllllllllllll")
+          navigate('/Dashboard');
+
+        }
         const idToken = await getIdTokenClaims();
         const accessToken = await getAccessTokenSilently();
-
+        console.log(user,accessToken,"accessToken",idToken)
         if (idToken.__raw) {
           let payload = {
             token : idToken.__raw
@@ -46,7 +51,7 @@ const LoginButton = () => {
             setLoading(false)
             toast.success('Login  successfully!', { position: toast.POSITION.TOP_RIGHT });
             localStorage.setItem("token", idToken.__raw)
-            navigate('/microsoftLoing');
+            // navigate('/microsoftLoing');
         }, 2000)
          
         }

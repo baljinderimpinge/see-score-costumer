@@ -1,9 +1,10 @@
 import { LogLevel } from "@azure/msal-browser";
+import { AUTHORITY, MICROSOFT_CLIENT_ID, REDIRECTURL, REDIRECT_URL } from "./constant";
 export const msalConfig = {
     auth: {
-        clientId: "cbaa1b09-522a-4a11-9aa3-7c04c0cc3498",
-        authority: "https://login.microsoftonline.com/manpreetsinghimpingegmail.onmicrosoft.com",
-        redirectUri: "http://localhost:4001",
+        clientId: MICROSOFT_CLIENT_ID,
+        authority: AUTHORITY,
+        redirectUri: REDIRECT_URL,
     },
     cache: {
         cacheLocation: "sessionStorage", 
