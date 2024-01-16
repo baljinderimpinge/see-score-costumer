@@ -16,6 +16,6 @@ export const MicrosoftAuthenticatedRoute = () => {
   
   const isAuthenticated = useIsAuthenticated();
   console.log(isAuthenticated, "isAuthenticated")
-  return isAuthenticated == false ? <Outlet /> : <Navigate to="/microsoftLoing" />
+  return isAuthenticated  ? <Outlet /> : <Navigate to="/custumer-dashboard" />
 };
 

@@ -1,5 +1,5 @@
 import { LogLevel } from "@azure/msal-browser";
-import { AUTHORITY, MICROSOFT_CLIENT_ID, REDIRECTURL, REDIRECT_URL } from "./constant";
+import { AUTHORITY, MICROSOFT_CLIENT_ID, REDIRECT_URL } from "./constant";
 export const msalConfig = {
     auth: {
         clientId: MICROSOFT_CLIENT_ID,

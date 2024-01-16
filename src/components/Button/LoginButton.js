@@ -34,28 +34,31 @@ const LoginButton = () => {
         return;
       }
       try {
-        if(localStorage.getItem("token")){
-          console.log("llllllllllllll")
-          navigate('/Dashboard');
-
-        }
         const idToken = await getIdTokenClaims();
-        const accessToken = await getAccessTokenSilently();
-        console.log(user,accessToken,"accessToken",idToken)
         if (idToken.__raw) {
           let payload = {
-            token : idToken.__raw
+            token: idToken.__raw
           }
-          const resuilt = axios.post(`${API_BASE_URL}/user/login`,payload)
-          setTimeout(() => {
-            setLoading(false)
-            toast.success('Login  successfully!', { position: toast.POSITION.TOP_RIGHT });
-            localStorage.setItem("token", idToken.__raw)
-            // navigate('/microsoftLoing');
-        }, 2000)
-         
-        }
 
+          
+          const resuilt = await axios.post(`${API_BASE_URL}/user/login`, payload)
+          if (user?.email === "adminseescore@gmail.com") {
+            setTimeout(() => {
+              setLoading(false)
+              toast.success('Login  successfully!', { position: toast.POSITION.TOP_RIGHT });
+              localStorage.setItem("token", idToken.__raw)
+              navigate('/admin-dashboard');
+            }, 2000)
+          } else {
+            setTimeout(() => {
+              setLoading(false)
+              toast.success('Login  successfully!', { position: toast.POSITION.TOP_RIGHT });
+              localStorage.setItem("token", idToken.__raw)
+              console.log(resuilt,"resuilt",idToken)
+              navigate('/custumer-dashboard');
+              }, 2000)
+          }
+        }
       } catch (error) {
         console.error('Error fetching tokens:', error);
       }
@@ -69,8 +72,8 @@ const LoginButton = () => {
       <ToastContainer />
       {loading && <FullPageLoader><ClipLoader size={50} color={'#000'} loading={loading} /></FullPageLoader>}
       <figure><img src={images} alt="logo" /></figure>
-      <button
-        className="btn btn-primary"
+      <button 
+        className="btn btn-primary login-button"
         onClick={() =>
           loginWithRedirect({
             redirectUri: `${window.location.origin}`
