@@ -27,6 +27,7 @@ const LoginButton = () => {
   const { loginWithRedirect, user, isAuthenticated, getIdTokenClaims, getAccessTokenSilently } = useAuth0();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
+  console.log(isAuthenticated,"isAuthenticated")
   if (isAuthenticated) {
     const fetchAndLogTokens = async () => {
       if (!isAuthenticated) {
@@ -43,6 +44,7 @@ const LoginButton = () => {
           
           const resuilt = await axios.post(`${API_BASE_URL}/user/login`, payload)
           if (user?.email === "adminseescore@gmail.com") {
+            
             setTimeout(() => {
               setLoading(false)
               toast.success('Login  successfully!', { position: toast.POSITION.TOP_RIGHT });
