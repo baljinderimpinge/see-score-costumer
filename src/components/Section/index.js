@@ -1,18 +1,15 @@
-import { useMsal } from '@azure/msal-react';
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom';
+import { AuthenticatedTemplate, UnauthenticatedTemplate, useMsal, MsalProvider } from "@azure/msal-react";
 
 const Section = () => {
     const { instance } = useMsal();
     const [homeId,setHomeId]=useState("")
-    const [currentAcc, setCurrentAc]=useState("")
-    //const  currentAccount = instance.getActiveAccount()
     useEffect(() => {
+      
       const currentAccount = instance.getActiveAccount()
       if (currentAccount) {
-        console.log(currentAccount.homeAccountId,"--------")
         setHomeId(currentAccount.homeAccountId)
-        //console.log(currentAccount.name, "kkkkkkkkkkkkkkkkkk")
       }
   
     }, [instance])
@@ -24,6 +21,7 @@ const Section = () => {
         postLogoutRedirectUri: "https://seescore.urtestsite.com/custumer-dashboard"
       }
       instance.logoutPopup(logoutRequest);
+      localStorage.removeItem('isLogind')
     }
   return (
   <>
@@ -33,7 +31,10 @@ const Section = () => {
         <Link to="/Insurance">Insurance</Link>
         <Link to="/Insurance">Alerts</Link>
         <Link to="/Insurance">Help</Link>
-        {homeId?<Link onClick={() => signOutClickHandler(instance)}>Logout</Link>:null} 
+        <AuthenticatedTemplate>
+        {<Link onClick={() => signOutClickHandler(instance)}>Logout</Link>} 
+        </AuthenticatedTemplate>
+       
       </div>
       </>
   )

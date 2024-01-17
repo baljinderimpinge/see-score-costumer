@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Header from '../../components/Header';
 import { useParams } from 'react-router-dom';
 import images from "../../assets/images/logo1.svg"
@@ -13,14 +13,7 @@ export const CustomerDashboard = () => {
 
   const { instance } = useMsal();
 
-  useEffect(() => {
-    const currentAccount = instance.getActiveAccount()
-    if (currentAccount) {
-      console.log(currentAccount.homeAccountId,"--------")
-      console.log(currentAccount.name, "kkkkkkkkkkkkkkkkkk")
-    }
 
-  }, [instance])
   const handleRedirect = () => {
     try {
       instance.loginRedirect(loginRequest);
