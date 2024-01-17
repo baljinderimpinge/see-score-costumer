@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import Images from "../../assets/images/chain.svg"
 import RiskImage  from '../../assets/images/riska-logo.svg';  
 import  userImage from '../../assets/images/user.svg'; 
+import { API_BASE_URL } from '../../lib/constant';
 import lockImage from '../../assets/images/lock.svg'; 
 import outImage from '../../assets/images/out.svg';  
 import { useAuth0 } from "@auth0/auth0-react";
@@ -29,7 +30,7 @@ const [contactEmail, setContactEmail] = useState('');
 
 const handleSubmit = async () => {
   try {
-    const response = await Axios.post('http://localhost:4000/admin/authCustomer', {
+    const response = await Axios.post(`${API_BASE_URL}/admin/authCustomer`, {
       businessName,
       businessAddress,
       website,
