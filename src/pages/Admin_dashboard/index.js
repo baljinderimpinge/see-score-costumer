@@ -1,7 +1,7 @@
 import React from "react";
 import Axios from 'axios';
 // import "./login";
-import  { useState } from "react";
+import  { useState, useEffect } from "react";
 // import './login.css';
 import { useNavigate } from "react-router-dom";
 import Images from "../../assets/images/chain.svg"
@@ -13,12 +13,13 @@ import outImage from '../../assets/images/out.svg';
 import { useAuth0 } from "@auth0/auth0-react";
 function AdminDashBoard() {
   const navigate = useNavigate();
-  const { logout, isAuthenticated } = useAuth0();
+  const { logout, isAuthenticated, user } = useAuth0();
 
   const handleCustomersClick = () => {
     navigate("/user");
   };
-
+ 
+ 
 const [businessName, setBusinessName] = useState('');
 const [businessAddress, setBusinessAddress] = useState('');
 const [website, setWebsite] = useState('');
@@ -26,7 +27,13 @@ const [industry, setIndustry] = useState('');
 const [contactName, setContactName] = useState('');
 const [contactNumber, setContactNumber] = useState('');
 const [contactEmail, setContactEmail] = useState('');
+const [name, setName] = useState('')
 
+useEffect(() => {
+  if (user) {
+    setName(user.name);
+  }
+}, [user]);
 
 const handleSubmit = async () => {
   try {
@@ -61,7 +68,7 @@ const handleSubmit = async () => {
           <nav className="navbar-expand-lg">
             <div className="container-fluid"><a href="#"><img src={RiskImage}/></a></div>
           </nav>
-			<div className="dropdown"><button className="btn dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false"><b>Welcome</b> Brenton Baker </button>
+			<div className="dropdown"><button className="btn dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false"><b>Welcome</b> {name || 'admin'} </button>
             <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
              <li><a className="dropdown-item" href="#"><img src={userImage}/> Account</a></li>
               <li><a className="dropdown-item" href="#"><img src={lockImage}/> Change Password</a></li>
@@ -79,9 +86,6 @@ const handleSubmit = async () => {
                 <a href="#">Onboarding</a>
                 <a href="#" onClick={handleCustomersClick}>Customers</a>
                 <a href="#">Alerts</a>
-                <a href="#">
-                  Logout <img src={require("../../assets/images/out.svg").default} alt="" />
-                </a>
               </div>
               <h2 className="mt-5">Customer onboarding</h2>
           <div className="bg-white border-radius-15 information">

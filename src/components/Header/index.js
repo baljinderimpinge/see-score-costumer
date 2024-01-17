@@ -9,18 +9,25 @@ import { useAuth0 } from '@auth0/auth0-react';
 import { useMsal } from '@azure/msal-react';
 
 const Header = () => {
-  const { logout, isAuthenticated } = useAuth0();
+  const { logout, isAuthenticated, user } = useAuth0();
   const [name, setName] = useState('')
   const { instance } = useMsal();
 
-  useEffect(() => {
-    const currentAccount = instance.getActiveAccount()
-    if (currentAccount) {
-      console.log(currentAccount.name, "kkkkkkkkkkkkkkkkkk")
-      setName(currentAccount.name)
-    }
+  // useEffect(() => {
+  //   const currentAccount = instance.getActiveAccount()
+  //   if (currentAccount) {
+  //     console.log(currentAccount.name, "kkkkkkkkkkkkkkkkkk")
+  //     setName(currentAccount.name)
+  //   }else if (user) {
+  //     setName(user.name);
+  //   }
 
-  }, [instance])
+  // }, [instance, user])
+  useEffect(() => {
+    if (user) {
+      setName(user.name);
+    }
+  }, [user]);
   return (
     <>
       <header>
@@ -28,7 +35,7 @@ const Header = () => {
         <nav className="navbar-expand-lg">
           <div className="container-fluid"><a href="#"><img src={RiskImage} /></a></div>
         </nav>
-        <div className="dropdown"><button className="btn dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false"><b>Welcome</b> {name || 'Tanant'} </button>
+        <div className="dropdown"><button className="btn dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false"><b>Welcome</b> {name} </button>
           <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
             <li><a className="dropdown-item" href="#"><img src={userImage} /> Account</a></li>
             <li><a className="dropdown-item" href="#"><img src={lockImage} /> Change Password</a></li>
