@@ -1,15 +1,27 @@
 import { useMsal } from '@azure/msal-react';
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom';
 
 const Section = () => {
     const { instance } = useMsal();
-     
+    const [homeId,setHomeId]=useState("")
+    const [currentAcc, setCurrentAc]=useState("")
+    //const  currentAccount = instance.getActiveAccount()
+    useEffect(() => {
+      const currentAccount = instance.getActiveAccount()
+      if (currentAccount) {
+        console.log(currentAccount.homeAccountId,"--------")
+        setHomeId(currentAccount.homeAccountId)
+        //console.log(currentAccount.name, "kkkkkkkkkkkkkkkkkk")
+      }
+  
+    }, [instance])
+    // const  [session, setSession] = useState(sessionStorage.getItem())
     const signOutClickHandler = (instance) => {
       const logoutRequest = {
-        account: instance.getAccountByHomeId("00000000-0000-0000-5932-13dd5f756a29.9188040d-6c67-4c5b-b112-36a304b66dad"),
-        mainWindowRedirectUri: "http://localhost:4001/custumer-dashboard",
-        postLogoutRedirectUri: "http://localhost:4001/custumer-dashboard"
+        account: instance.getAccountByHomeId(homeId),
+        mainWindowRedirectUri: "https://seescore.urtestsite.com/custumer-dashboard",
+        postLogoutRedirectUri: "https://seescore.urtestsite.com/custumer-dashboard"
       }
       instance.logoutPopup(logoutRequest);
     }
@@ -21,7 +33,7 @@ const Section = () => {
         <Link to="/Insurance">Insurance</Link>
         <Link to="/Insurance">Alerts</Link>
         <Link to="/Insurance">Help</Link>
-        <Link onClick={() => signOutClickHandler(instance)}>Logout</Link>
+        {homeId?<Link onClick={() => signOutClickHandler(instance)}>Logout</Link>:null} 
       </div>
       </>
   )

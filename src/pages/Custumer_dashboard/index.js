@@ -16,6 +16,7 @@ export const CustomerDashboard = () => {
   useEffect(() => {
     const currentAccount = instance.getActiveAccount()
     if (currentAccount) {
+      console.log(currentAccount.homeAccountId,"--------")
       console.log(currentAccount.name, "kkkkkkkkkkkkkkkkkk")
     }
 
@@ -39,8 +40,8 @@ export const CustomerDashboard = () => {
             <p class="fw-normal">Click your identity provider below to get started. You’ll need to be a Global Administrator to connect to the platform.</p>
             <div class="row mt-4 gy-4">
               <div class="col-md-4">
-                <div class="bg-white p-5 border-radius-15 text-center">
-                  <figure><img src={images} alt="rr" /></figure>
+                <div  class="bg-white p-5 border-radius-15 text-center">
+                  <figure><img onClick={handleRedirect} src={images} alt="rr" /></figure>
                   <h5 onClick={handleRedirect} >Microsoft Azure</h5>
                 </div>
               </div>  
@@ -50,9 +51,10 @@ export const CustomerDashboard = () => {
       </UnauthenticatedTemplate>
       <AuthenticatedTemplate>
       <Header/>
-      <Section/>
+     
         <section>
           <div className="container">
+          <div className="ptb-110"><Section/></div>  
             <div className="score-main">
               <div className="bg-primary border-radius-30 score first-score">
                 <div className="score-number">
