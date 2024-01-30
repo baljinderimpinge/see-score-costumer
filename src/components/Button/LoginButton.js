@@ -27,7 +27,7 @@ const LoginButton = () => {
   const { loginWithRedirect, user, isAuthenticated, getIdTokenClaims, getAccessTokenSilently } = useAuth0();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
-  console.log(isAuthenticated,"isAuthenticated")
+  console.log(isAuthenticated, "isAuthenticated")
   if (isAuthenticated) {
     const fetchAndLogTokens = async () => {
       if (!isAuthenticated) {
@@ -41,10 +41,10 @@ const LoginButton = () => {
             token: idToken.__raw
           }
 
-          
+
           const resuilt = await axios.post(`${API_BASE_URL}/user/login`, payload)
           if (user?.email === "adminseescore@gmail.com") {
-            
+
             setTimeout(() => {
               setLoading(false)
               toast.success('Login  successfully!', { position: toast.POSITION.TOP_RIGHT });
@@ -52,13 +52,14 @@ const LoginButton = () => {
               navigate('/admin-dashboard');
             }, 2000)
           } else {
+            console.log("----+++++")
             setTimeout(() => {
               setLoading(false)
               toast.success('Login  successfully!', { position: toast.POSITION.TOP_RIGHT });
               localStorage.setItem("token", idToken.__raw)
-              console.log(resuilt,"resuilt",idToken)
+              console.log(resuilt, "resuilt", idToken)
               navigate('/custumer-dashboard');
-              }, 2000)
+            }, 2000)
           }
         }
       } catch (error) {
@@ -74,7 +75,7 @@ const LoginButton = () => {
       <ToastContainer />
       {loading && <FullPageLoader><ClipLoader size={50} color={'#000'} loading={loading} /></FullPageLoader>}
       <figure><img src={images} alt="logo" /></figure>
-      <button 
+      <button
         className="btn btn-primary login-button"
         onClick={() =>
           loginWithRedirect({

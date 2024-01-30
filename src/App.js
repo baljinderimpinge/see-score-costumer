@@ -2,6 +2,7 @@ import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import "./Style.css"
 // import './pages//style.css'
 import LoginButton from './components/Button/LoginButton';
 import LogoutButton from './components/Button/LogoutButton';

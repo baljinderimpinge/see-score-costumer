@@ -5,6 +5,15 @@ import RiskImage from '../../assets/images/riska-logo.svg';
 import userImage from '../../assets/images/user.svg';
 import lockImage from '../../assets/images/lock.svg';
 import outImage from '../../assets/images/out.svg';
+
+
+import MainImg from "../../assets/images/new/guardian.svg"
+import UserImg from "../../assets/images/new/user.svg"
+import LockImg from "../../assets/images/new/lock.svg"
+import OutImg from "../../assets/images/new/out.svg"
+import UserImgIcon from "../../assets/images/new/user-icon.svg"
+
+
 import { useAuth0 } from '@auth0/auth0-react';
 import { useMsal } from '@azure/msal-react';
 
@@ -31,21 +40,21 @@ const Header = () => {
   return (
     <>
       <header>
-        <div className="chain"> <img src={Images} /></div>
-        <nav className="navbar-expand-lg">
-          <div className="container-fluid"><a href="#"><img src={RiskImage} /></a></div>
-        </nav>
-        <div className="dropdown"><button className="btn dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false"><b>Welcome</b> {name} </button>
+        <div className="top-name">
+          <img src={MainImg} alt="" /> Guardian
+        </div>
+        <div className="dropdown d-none d-xl-block">
+          <button className="btn dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false"><b>Welcome</b> {name}</button>
           <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-            <li><a className="dropdown-item" href="#"><img src={userImage} /> Account</a></li>
-            <li><a className="dropdown-item" href="#"><img src={lockImage} /> Change Password</a></li>
+            <li><a className="dropdown-item" href="#"><img src={UserImg} alt="" /> Account</a></li>
+            <li><a className="dropdown-item" href="#"><img src={LockImg} alt="" /> Change Password</a></li>
             <li onClick={() => {
               logout({ returnTo: window.location.origin });
               localStorage.clear("token");
-            }}>
-              <a className="dropdown-item" href="#"><img src={outImage} /> Logout</a></li>
+            }}> <a className="dropdown-item" href="#"><img src={OutImg} alt="" /> Logout</a></li>
           </ul>
         </div>
+        <div className="d-block d-xl-none"><a href="#"><img src={UserImgIcon} alt="" /></a></div>
       </header>
     </>
 

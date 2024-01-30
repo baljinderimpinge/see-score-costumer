@@ -7,8 +7,19 @@ import { API_BASE_URL } from '../../lib/constant';
 import { AuthenticatedTemplate, UnauthenticatedTemplate, useMsal, MsalProvider } from "@azure/msal-react";
 import { loginRequest } from '../Login/msalSetup';
 import Section from '../../components/Section';
+import Sidebar from '../../components/Sidebar/Sidebar';
+import SubImg from "../../assets/images/new/subtract.svg"
+import IdImg from "../../assets/images/new/identity-shape.svg"
+import ChartImg from "../../assets/images/new/chart.jpg"
 
 export const CustomerDashboard = () => {
+
+
+  const styles = {
+    background: `url(${IdImg})`,
+    backgroundRepeat: 'no-repeat',
+    backgroundPosition: 'bottom',
+  };
 
 
   const { instance } = useMsal();
@@ -22,99 +33,99 @@ export const CustomerDashboard = () => {
     }
   };
   return (
-    <div>
-
+    <>
       <UnauthenticatedTemplate>
-      <Header/>    
-        <section class="ptb-110">
-          <div class="container">
-          <Section/>
-            <h2 class="mt-5">Let’s connect to your Identity Provider</h2>
-            <p class="fw-normal">Click your identity provider below to get started. You’ll need to be a Global Administrator to connect to the platform.</p>
-            <div class="row mt-4 gy-4">
-              <div class="col-md-4">
-                <div  class="bg-white p-5 border-radius-15 text-center">
-                  <figure><img onClick={handleRedirect} src={images} alt="rr" /></figure>
-                  <h5 onClick={handleRedirect} >Microsoft Azure</h5>
+        <Sidebar />
+        <main>
+          <Header />
+          <div class="content-page">
+            <Section />
+            <section>
+
+              <h2>Get started</h2>
+              <p class="fw-semibold">Select your identity provider below to get started</p>
+
+              <div class="row mt-4 gy-4">
+                <div class="col-md-4">
+                  <div class="bg-white p-5 border-radius-15 text-center">
+                    <figure><img onClick={handleRedirect} src={images} alt="" /></figure>
+                    <h5 onClick={handleRedirect} >Microsoft Azure</h5>
+                  </div>
                 </div>
-              </div>  
-            </div>
+              </div>
+            </section>
           </div>
-        </section>
+        </main>
       </UnauthenticatedTemplate>
       <AuthenticatedTemplate>
-      <Header/>
-     
-        <section>
-          <div className="container">
-          <div className="ptb-110"><Section/></div>  
-            <div className="score-main">
-              <div className="bg-primary border-radius-30 score first-score">
-                <div className="score-number">
-                  <h5>Your Identity Score</h5><span className="percentage-num">81<sub>%</sub></span>
-                </div>
-                <div className="divider"></div>
-                <div className="score-number">
-                  <h5>Benchmark</h5>
-                  <div className="con">
-                    <div className="percentage-num">67<sub>%</sub></div>
-                    <div className="readmore text-center mt-4"><a href="#">Discover more <i className="fa-solid fa-chevron-right"></i></a></div>
+        <Sidebar />
+        <main>
+          <Header />
+          <div class="content-page">
+            <Section />
+
+            <h2 class="mb-4">Risk dashboard</h2>
+            <section>
+              <div class="score-main">
+                <div class="bg-white border-radius-30 score first-score" style={styles}>
+                  <div class="score-number">
+                    <figure><img src={SubImg} alt="" /></figure>
+                    <h5>Identity Score</h5>
+                    <span class="percentage-num">81<sub>%</sub></span>
+                    <div class="readmore text-center mt-4"><a href="#">Learn more <i class="fa-solid fa-chevron-right"></i></a></div>
                   </div>
                 </div>
-              </div>
-              <div className="second-score">
-                <div className="bg-white border-radius-30 score">
-                  <div className="score-number">
-                    <h5>Other metric</h5>
-                    <div className="con">
-                      <div className="percentage-num">32<sub>%</sub></div>
-                      <div className="readmore text-center mt-4"><a href="#">Discover more <i className="fa-solid fa-chevron-right"></i></a></div>
+                <div class="second-score">
+                  <div class="bg-white border-radius-30 score">
+                    <div class="score-number">
+                      <h5>Active users</h5>
+                      <div class="con">
+                        <div class="percentage-num">7</div>
+                      </div>
                     </div>
                   </div>
-                </div>
-                <div className="bg-white border-radius-30 score">
-                  <div className="score-number">
-                    <h5>Current alerts</h5>
-                    <div className="con">
-                      <div className="percentage-num">45</div>
-                      <div className="readmore text-center mt-4"><a href="#">Discover more <i className="fa-solid fa-chevron-right"></i></a></div>
+                  <div class="bg-white border-radius-30 score">
+                    <div class="score-number">
+                      <h5>Open findings</h5>
+                      <div class="con">
+                        <div class="percentage-num">5</div>
+                        <div class="readmore text-center mt-4"><a href="#">View security health <i class="fa-solid fa-chevron-right"></i></a></div>
+                      </div>
                     </div>
                   </div>
-                </div>
-                <div className="bg-white border-radius-30 score last">
-                  <div className="score-number">
-                    <h5 className="mb-md-0">Another <br className="d-none d-md-block" /> metric</h5>
-                    <div className="con">
-                      <div className="percentage-num">93</div>
-                      <div className="readmore text-center mt-4"><a href="#">Discover more <i className="fa-solid fa-chevron-right"></i></a></div>
+                  <div class="bg-white border-radius-30 score last">
+                    <div class="score-number text-start">
+                      <h5>Identity score trend</h5>
+                      <img src={ChartImg} alt="" class="w-100" />
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
+            </section>
+            <section>
+              {/* <div className="container">
+                <div className="bg-white border-radius-15 open-risk">
+                  <h2 className="text-primary">Open Risks</h2>
+                  <p>Click to see a detailed explanation. </p>
+                  <div className="mt-4">
+                    <ul className="list-unstyled risk">
+                      <li>Ensure user consent to apps accessing company data on their behalf is not allowed</li>
+                      <li>Ensure the 'Password expiration policy' is set to 'Set passwords to never expire (recommended)'</li>
+                      <li>Enable Conditional Access policies to block legacy authentication</li>
+                      <li>Ensure multifactor authentication is enabled for all users</li>
+                      <li>Ensure multifactor authentication is enabled for all users in administrative roles</li>
+                      <li>Enable Azure AD Identity Protection sign-in risk policies</li>
+                    </ul>
+                  </div>
+                </div>
+              </div> */}
+              <div class="update-date"><span>Last updated - 15/01/2024, 11:00:00</span></div>
+            </section>
           </div>
-        </section>
-        <section>
-          <div className="container">
-            <div className="bg-white border-radius-15 open-risk">
-              <h2 className="text-primary">Open Risks</h2>
-              <p>Click to see a detailed explanation. </p>
-              <div className="mt-4">
-                <ul className="list-unstyled risk">
-                  <li>Ensure user consent to apps accessing company data on their behalf is not allowed</li>
-                  <li>Ensure the 'Password expiration policy' is set to 'Set passwords to never expire (recommended)'</li>
-                  <li>Enable Conditional Access policies to block legacy authentication</li>
-                  <li>Ensure multifactor authentication is enabled for all users</li>
-                  <li>Ensure multifactor authentication is enabled for all users in administrative roles</li>
-                  <li>Enable Azure AD Identity Protection sign-in risk policies</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </section>
+        </main>
         <footer></footer>
       </AuthenticatedTemplate>
-      </div>
+    </>
   );
 };
 
