@@ -34,6 +34,7 @@ const Header = () => {
   // }, [instance, user])
   useEffect(() => {
     if (user) {
+      console.log(user, "kkkkkkkkkkkkkkkkkk")
       setName(user.name);
     }
   }, [user]);
