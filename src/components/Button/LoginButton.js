@@ -77,7 +77,7 @@ const LoginButton = () => {
       <figure><img src={images} alt="logo" /></figure>
       <button
         className="btn btn-primary login-button"
-        onClick={() =>
+        onLoad={() =>
           loginWithRedirect({
             redirectUri: `${window.location.origin}`
           })
