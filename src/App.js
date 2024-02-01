@@ -14,6 +14,11 @@ import Insurance from './pages/Insurance';
 import MicrosoftLoing from './pages/Login/microsoftLoing';
 import { AuthenticatedTemple, EventType } from "@azure/msal-browser"
 import { MsalProvider } from '@azure/msal-react';
+import SecurityHealth from './pages/Security_health';
+import Assetlandscape from './pages/Asset_landscape';
+import Sidebar from './components/CompanyName/CompanyName';
+import Logout from './pages/Logout/Index';
+import Help from './pages/Help';
 
 function App({ maslInstance }) {
   return (
@@ -24,6 +29,15 @@ function App({ maslInstance }) {
             <Route path="/" element={<LoginButton />} />
             <Route path="/custumer-dashboard" element={<CustomerDashboard />} />
             <Route path="/admin-dashboard" element={<AdminDashBoard />} />
+            <Route path="/security-health" element={<SecurityHealth />} />
+            <Route path="/asset-landscape" element={<Assetlandscape />} />
+            <Route path="/insurance" element={<Insurance />} />
+            <Route path="/help" element={<Help />} />
+            <Route path="/logout" element={<Logout />} />
+
+
+
+
 
             {/* <Route element={<AuthenticatedRoute />}> */}
             {/* <Route path="/microsoftLoing" element={<MicrosoftLoing/>} /> */}

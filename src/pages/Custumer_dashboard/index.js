@@ -12,6 +12,7 @@ import SubImg from "../../assets/images/new/subtract.svg"
 import IdImg from "../../assets/images/new/identity-shape.svg"
 import ChartImg from "../../assets/images/new/chart.jpg"
 
+
 export const CustomerDashboard = () => {
 
 
@@ -32,6 +33,7 @@ export const CustomerDashboard = () => {
       console.error("Error during login redirect:", error);
     }
   };
+
   return (
     <>
       <UnauthenticatedTemplate>
