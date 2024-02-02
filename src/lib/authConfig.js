@@ -3,19 +3,19 @@ import { AUTHORITY, MICROSOFT_CLIENT_ID, REDIRECT_URL } from "./constant";
 export const msalConfig = {
     auth: {
         clientId: MICROSOFT_CLIENT_ID,
-        authority: AUTHORITY,
+        authority: 'https://login.microsoftonline.com/common',
         redirectUri: REDIRECT_URL,
     },
     cache: {
-        cacheLocation: "sessionStorage", 
-        storeAuthStateInCookie: false, 
+        cacheLocation: "sessionStorage",
+        storeAuthStateInCookie: false,
     },
-    system: {	
-        loggerOptions: {	
-            loggerCallback: (level, message, containsPii) => {	
-                if (containsPii) {		
-                    return;		
-                }		
+    system: {
+        loggerOptions: {
+            loggerCallback: (level, message, containsPii) => {
+                if (containsPii) {
+                    return;
+                }
                 switch (level) {
                     case LogLevel.Error:
                         console.error(message);
@@ -31,12 +31,14 @@ export const msalConfig = {
                         return;
                     default:
                         return;
-                }	
-            }	
-        }	
+                }
+            }
+        }
     }
 };
 
 export const loginRequest = {
-    scopes: ["User.Read"]
+    scopes: ["User.Read","SecurityEvents.ReadWrite.All",
+    "SecurityEvents.Read.All","Directory.Read.All","Directory.ReadWrite.All",
+"DirectoryRecommendations.Read.All","DirectoryRecommendations.ReadWrite.All"]
 };
