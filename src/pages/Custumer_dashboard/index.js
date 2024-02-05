@@ -11,10 +11,17 @@ import Sidebar from '../../components/Sidebar/Sidebar';
 import SubImg from "../../assets/images/new/subtract.svg"
 import IdImg from "../../assets/images/new/identity-shape.svg"
 import ChartImg from "../../assets/images/new/chart.jpg"
+import { CacheLookupPolicy } from '@azure/msal-browser';
 
 
 export const CustomerDashboard = () => {
-
+  const { instance,inProgress } = useMsal();
+  const allSessionStorageItems = { ...sessionStorage };
+const [ accessToken , setAccessToken] = useState()
+const [accessTokenStatus, setAccessTokenStatus]= useState(false)
+const [ userRiskPolicy, setUserRiskPolicy]=useState()
+  // Log or use the items
+  // console.log(allSessionStorageItems,"allSessionStorageItems");
 
   const styles = {
     background: `url(${IdImg})`,
@@ -23,9 +30,52 @@ export const CustomerDashboard = () => {
   };
 
 
-  const { instance } = useMsal();
+  const account = instance.getAllAccounts()
+  // console.log(account,inProgress,instance, "accountaccount")
+  var username = "vishal@impingesolutionssgmail.onmicrosoft.com";
 
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        // You may want to check if inProgress is false before making the token request
+        if (!accessTokenStatus) {
+          const silentRequest = { cacheLookupPolicy: CacheLookupPolicy.Default};
+          const token = await instance.acquireTokenSilent(silentRequest);
+          setAccessToken(token.accessToken);
+          console.log(token.accessToken,"ikkkkkkkk")
+          setAccessTokenStatus(true)
+          const payload = {
+            token:token.accessToken
+          }
+          try {
+            const data = await axios.post("http://localhost:4000/user/token",payload)
+            console.log(data?.data.data[0])
+            setUserRiskPolicy(data?.data?.data[0])
+          } catch (error) {
+            console.log(error,"error")
+          }
+        }
+      } catch (error) {
+        console.error('Token acquisition error:', error);
+      }
+    };
 
+    fetchData();
+  }, [instance,account, inProgress]);
+
+  // useEffect(()=>{
+  //   getToken()
+  // },[instance,account,inProgress])
+// const getToken  =async ()=>{
+//   var silentRequest = {
+//     cacheLookupPolicy: CacheLookupPolicy.Default
+//   }
+
+//   const token = await instance.acquireTokenSilent(silentRequest)
+//   console.log(token.accessToken)
+//   setAccessToken(token.accessToken)
+// }
+ 
   const handleRedirect = () => {
     try {
       instance.loginRedirect(loginRequest);
@@ -73,7 +123,7 @@ export const CustomerDashboard = () => {
                   <div class="score-number">
                     <figure><img src={SubImg} alt="" /></figure>
                     <h5>Identity Score</h5>
-                    <span class="percentage-num">81<sub>%</sub></span>
+                    <span class="percentage-num">{userRiskPolicy?.scoreInPercentage||81}<sub>%</sub></span>
                     <div class="readmore text-center mt-4"><a href="#">Learn more <i class="fa-solid fa-chevron-right"></i></a></div>
                   </div>
                 </div>
@@ -82,7 +132,7 @@ export const CustomerDashboard = () => {
                     <div class="score-number">
                       <h5>Active users</h5>
                       <div class="con">
-                        <div class="percentage-num">7</div>
+                        <div class="percentage-num">{userRiskPolicy?.total||7}</div>
                       </div>
                     </div>
                   </div>

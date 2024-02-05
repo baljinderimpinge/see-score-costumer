@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
@@ -21,6 +21,8 @@ import Logout from './pages/Logout/Index';
 import Help from './pages/Help';
 
 function App({ maslInstance }) {
+
+
   return (
     <React.Fragment>
       <MsalProvider instance={maslInstance}>
@@ -102,3 +104,31 @@ export default App;
 // }
 
 // export default App;
+
+
+
+// var username = "vishal@impingesolutionssgmail.onmicrosoft.com";
+// var currentAccount = instance.getAccountByUsername(username);
+// var silentRequest = {
+//   scopes: ["Mail.Read"],
+//   account: currentAccount,
+//   forceRefresh: false,
+//   cacheLookupPolicy: CacheLookupPolicy.Default // will default to CacheLookupPolicy.Default if omitted
+// };
+
+// var request = {
+//   scopes: ["Mail.Read"],
+//   loginHint: currentAccount.username // For v1 endpoints, use upn from idToken claims
+// };
+
+// const tokenResponse = await instance.acquireTokenSilent(silentRequest).catch(async (error) => {
+//     if (error instanceof InteractionRequiredAuthError) {
+//         // fallback to interaction when silent call fails
+//         return await instance.acquireTokenPopup(request).catch(error => {
+//             if (error instanceof InteractionRequiredAuthError) {
+//                 // fallback to interaction when silent call fails
+//                 return instance.acquireTokenRedirect(request)
+//             }
+//         });
+//     }
+// });

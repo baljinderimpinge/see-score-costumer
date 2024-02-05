@@ -5,9 +5,10 @@ export const msalConfig = {
         clientId: MICROSOFT_CLIENT_ID,
         authority: 'https://login.microsoftonline.com/common',
         redirectUri: REDIRECT_URL,
+        
     },
     cache: {
-        cacheLocation: "sessionStorage",
+        cacheLocation: "localStorage",
         storeAuthStateInCookie: false,
     },
     system: {

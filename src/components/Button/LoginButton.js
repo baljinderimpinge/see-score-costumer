@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useNavigate } from 'react-router-dom';
 import images from "../../assets/images/auth-logo.png"
@@ -28,6 +28,13 @@ const LoginButton = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   console.log(isAuthenticated, "isAuthenticated")
+  useEffect(()=>{
+    
+      loginWithRedirect({
+        redirectUri: `${window.location.origin}`
+      })
+    
+  },[!isAuthenticated])
   if (isAuthenticated) {
     const fetchAndLogTokens = async () => {
       if (!isAuthenticated) {
@@ -72,7 +79,7 @@ const LoginButton = () => {
   // Call the function to fetch and log tokens
   return (
     <div className="login-box">
-      <ToastContainer />
+      {/* <ToastContainer />
       {loading && <FullPageLoader><ClipLoader size={50} color={'#000'} loading={loading} /></FullPageLoader>}
       <figure><img src={images} alt="logo" /></figure>
       <button
@@ -84,7 +91,7 @@ const LoginButton = () => {
         }
       >
         Log In
-      </button>
+      </button> */}
     </div>
   );
 }
