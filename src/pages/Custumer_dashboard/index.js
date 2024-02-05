@@ -48,7 +48,7 @@ export const CustomerDashboard = () => {
             token: token.accessToken
           }
           try {
-            const data = await axios.post("http://localhost:4000/user/token", payload)
+            const data = await axios.post(`${API_BASE_URL}/user/token"`, payload)
             console.log(data?.data.data[0])
             setUserRiskPolicy(data?.data?.data[0])
           } catch (error) {
