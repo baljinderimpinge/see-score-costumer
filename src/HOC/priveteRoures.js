@@ -6,7 +6,7 @@ import { useIsAuthenticated, useMsal } from '@azure/msal-react';
 
 export const AuthenticatedRoute = () => {
   const token = localStorage.getItem("token")
-  return token ? <Outlet /> : <Navigate to="/loing" />
+  return token ? <Outlet /> : <Navigate to="/" />
 };
 
 export const MicrosoftAuthenticatedRoute = () => {

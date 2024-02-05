@@ -28,7 +28,9 @@ function App({ maslInstance }) {
       <MsalProvider instance={maslInstance}>
         <BrowserRouter>
           <Routes>
+           
             <Route path="/" element={<LoginButton />} />
+            <Route element={<AuthenticatedRoute />}>
             <Route path="/custumer-dashboard" element={<CustomerDashboard />} />
             <Route path="/admin-dashboard" element={<AdminDashBoard />} />
             <Route path="/security-health" element={<SecurityHealth />} />
@@ -36,11 +38,6 @@ function App({ maslInstance }) {
             <Route path="/insurance" element={<Insurance />} />
             <Route path="/help" element={<Help />} />
             <Route path="/logout" element={<Logout />} />
-
-
-
-
-
             {/* <Route element={<AuthenticatedRoute />}> */}
             {/* <Route path="/microsoftLoing" element={<MicrosoftLoing/>} /> */}
             {/* <Route element={<MicrosoftAuthenticatedRoute/>}>
@@ -49,6 +46,7 @@ function App({ maslInstance }) {
             <Route path="/Insurance" element={<Insurance />} />
             </Route> */}
             {/* </Route> */}
+            </Route>
           </Routes>
         </BrowserRouter>
       </MsalProvider>
