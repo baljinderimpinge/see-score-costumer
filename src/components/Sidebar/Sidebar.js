@@ -23,7 +23,7 @@ export default function Sidebar(props) {
                             <ul>
                                 <li><Link to="/custumer-dashboard">Dashboard</Link></li>
                                 <li><a href="#"><img src={Icon3} alt="" />Customer onboarding</a></li>
-                                <li><a href="#"><img src={Icon5} alt="" />View customers</a></li>
+                                <li><Link to="/view-customer"><img src={Icon5} alt="" />View customers</Link></li>
                                 <li><a href="#"><img src={Icon6} alt="" />Logout</a></li>
                             </ul>
                         </div>

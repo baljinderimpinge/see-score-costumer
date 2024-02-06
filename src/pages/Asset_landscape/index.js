@@ -4,13 +4,14 @@ import Header from "../../components/Header";
 import IconImg from "../../assets/images/new/bag-suite.svg"
 
 function Assetlandscape() {
+    let companyname = localStorage.getItem("companyName");
     return (<>
         <Sidebar />
         <main>
             <Header />
             <div class="content-page">
                 <section class="ptb-85">
-                    <h1 class="icon-heading"><img src={IconImg} />Company Name Here</h1>
+                    <h1 class="icon-heading"><img src={IconImg} />{companyname}</h1>
                 </section>
                 <section>
                     <h2 class="mb-4">Insurance</h2>

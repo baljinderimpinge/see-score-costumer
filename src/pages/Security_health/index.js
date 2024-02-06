@@ -1,82 +1,105 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import Header from "../../components/Header";
 import IconImg from "../../assets/images/new/identity-icon.svg"
 import IconImg1 from "../../assets/images/new/bag-suite.svg"
+import arrow from "../../assets/images/new/white-arrow.svg"
 
-function SecurityHealth() {
+import axios from "axios";
+import { API_BASE_URL } from "../../lib/constant";
+
+const SecurityHealth = () => {
+    const [showTogel, setShowtoggel] = useState([])
+    const [recomendationData, setRecomendationData] = useState()
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const email = localStorage.getItem("email")
+                const payload = {
+                    email: email
+                }
+
+                const response = await axios.post(`${API_BASE_URL}/user/recomen`, payload);
+                console.log(response.data.data);
+                setRecomendationData(response.data.data)
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        };
+
+        fetchData();
+
+        // Clean-up function can be optionally defined if needed
+        // return () => {
+        //   clean-up code here
+        // };
+    }, []);
+
+    const show = (itemId) => {
+        if (showTogel.includes(itemId)) {
+            setShowtoggel(showTogel.filter(id => id !== itemId));
+        } else {
+            setShowtoggel([...showTogel, itemId]);
+        }
+    }
+    let companyname = localStorage.getItem("companyName");
     return (<>
         <Sidebar />
         <main>
             <Header />
             <div class="content-page">
                 <section class="ptb-85">
-                    <h1 class="icon-heading"><img src={IconImg1} />Company Name Here</h1>
+                    <h1 class="icon-heading"><img src={IconImg1} />{companyname}</h1>
                 </section>
                 <section>
                     <h2 class="mb-4 icon-heading"><img src={IconImg} alt="" />Identity recommendations</h2>
-                    <div class="accordion" id="accordionExample">
-                        <div class="accordion-item">
-                            <h2 class="accordion-header" id="headingOne">
-                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                    <span class="txt">Enable Azure AD Identity Protection sign-in risk policies</span> <span class="btn btn-red">Critical</span>
-                                </button>
-                            </h2>
-                            <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-                                <div class="accordion-body">
-                                    <p><b>Insights</b><br />
-                                        You currently have 1 global admins.<br /><br />
+                    <div className="accordion" id="accordionExample">
+                        {recomendationData && recomendationData.length > 0 && recomendationData.map((item, index) => {
+                            const accordionId = `accordion-${item.id}-${index}`; // Unique identifier
+                            const collapseId = `collapse-${item.id}-${index}`; // Unique identifier
+                            return (
+                                <div key={accordionId} className="accordion-item">
+                                    <h2 className="accordion-header" id={accordionId}>
+                                        <button onClick={() => show(item.id)} className={showTogel.includes(item.id) ? "accordion-button" : 'accordion-button collapsed'} type="button" data-bs-toggle="collapse"
+                                            data-bs-target={`#${collapseId}`} aria-expanded={showTogel.includes(item.id)} aria-controls={collapseId}>
+                                            <span className="txt">{item?.displayName}</span>  <span 
+                                            className={item.priority==  "low" ? "btn btn-yellow" : item.priority=="medium" ? "btn btn-orange" : "btn btn-red"} 
+                                           >{item?.priority}</span>
+                                        </button>
+                                    </h2>
+                                    <div id={collapseId} className={showTogel.includes(item.id) ? "accordion-collapse collapse show" : "accordion-collapse collapse"} aria-labelledby={accordionId} data-bs-parent="#accordionExample">
+                                        <div className="accordion-body">
+                                            <p><b>Insights</b><br />
+                                                {item?.insights}<br /><br /></p>
 
-                                        <b>Description</b><br />
-                                        Having more than one global administrator helps if you’re unable to fulfill the needs or obligations of your organization. It's important to have a delegate or an emergency access account that someone from your team can access if necessary. It also allows admins the ability to monitor each other for signs of a breach
-                                        <br /><br />
-                                        <b>Resolution steps</b><br />
-                                        1. Assign more than one user a global administrator role in your organization. Go to Microsoft Entra ID {">"} Roles and administrators and select the Global administrator role in the table. Then click Add assignments.</p>
+                                            <p> <b>Description</b><br />
+                                                {item?.benefits}
+                                                <br /><br />
+                                            </p>
 
-                                    <a href="#" class="btn btn-primary icon-btn">Action now <img src="images/white-arrow.svg" alt="" /></a>
+                                            <b>Resolution steps</b>
+                                            {item && item?.actionSteps?.length > 0 && item.actionSteps.map((value, index) => {
+                                                return (
+                                                    <>
+                                                        <p>
 
+                                                            {value.text}</p>
+
+                                                        <a href={value?.actionUrl?.url} class="btn btn-primary icon-btn  mb-3" target="blank">Active <img src={arrow} alt="" /></a>
+
+                                                    </>
+
+                                                )
+                                            })}
+
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="accordion-item">
-                            <h2 class="accordion-header" id="headingTwo">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                    <span class="txt">Ensure multifactor authentication is enabled for all users in administrative roles</span>  <span class="btn btn-orange">Moderate</span>
-                                </button>
-                            </h2>
-                            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
-                                <div class="accordion-body">
-                                    <p><b>Insights</b><br />
-                                        You currently have 1 global admins.<br /><br />
-
-                                        <b>Description</b><br />
-                                        Having more than one global administrator helps if you’re unable to fulfill the needs or obligations of your organization. It's important to have a delegate or an emergency access account that someone from your team can access if necessary. It also allows admins the ability to monitor each other for signs of a breach
-                                        <br /><br />
-                                        <b>Resolution steps</b><br />
-                                        1. Assign more than one user a global administrator role in your organization. Go to Microsoft Entra ID {">"} Roles and administrators and select the Global administrator role in the table. Then click Add assignments.</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="accordion-item">
-                            <h2 class="accordion-header" id="headingThree">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                                    <span class="txt">Designate more than one global admin</span> <span class="btn btn-yellow">Low</span>
-                                </button>
-                            </h2>
-                            <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
-                                <div class="accordion-body">
-                                    <p><b>Insights</b><br />
-                                        You currently have 1 global admins.<br /><br />
-
-                                        <b>Description</b><br />
-                                        Having more than one global administrator helps if you’re unable to fulfill the needs or obligations of your organization. It's important to have a delegate or an emergency access account that someone from your team can access if necessary. It also allows admins the ability to monitor each other for signs of a breach
-                                        <br /><br />
-                                        <b>Resolution steps</b><br />
-                                        1. Assign more than one user a global administrator role in your organization. Go to Microsoft Entra ID {">"} Roles and administrators and select the Global administrator role in the table. Then click Add assignments.</p>
-                                </div>
-                            </div>
-                        </div>
+                            );
+                        })}
                     </div>
+
+
 
                     <h2 class="mb-4 icon-heading mt-115"><img src="images/security-checklist.svg" alt="" />Security checklist</h2>
                     <div class="accordion" id="accordionExample">

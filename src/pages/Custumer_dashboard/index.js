@@ -40,17 +40,28 @@ export const CustomerDashboard = () => {
         // You may want to check if inProgress is false before making the token request
         if (!accessTokenStatus) {
           const silentRequest = { cacheLookupPolicy: CacheLookupPolicy.Default };
+          console.log(silentRequest,"lllllll")
           const token = await instance.acquireTokenSilent(silentRequest);
           setAccessToken(token.accessToken);
-          console.log(token.accessToken, "ikkkkkkkk")
+          console.log(token, "ikkkkkkkk")
           setAccessTokenStatus(true)
           const payload = {
-            token: token.accessToken
+            email: token?.account?.username
+          }
+          const payload1 = {
+            email:token?.account?.username,
+            token: token?.accessToken
           }
           try {
-            const data = await axios.post(`${API_BASE_URL}/user/token"`, payload)
+            const result = await axios.post(`${API_BASE_URL}/user/addToken`, payload1)
+            console.log(result?.data?.data?.email,"resultkljjjjjjjj")
+            const payload = {
+              email: result?.data?.data?.email
+            }
+            localStorage.setItem("email",result?.data?.data?.email)
+            const data = await axios.post(`${API_BASE_URL}/user/getScoreData`, payload)
             console.log(data?.data.data[0])
-            setUserRiskPolicy(data?.data?.data[0])
+            setUserRiskPolicy(data?.data?.data[0])  
           } catch (error) {
             console.log(error, "error")
           }
@@ -123,7 +134,7 @@ export const CustomerDashboard = () => {
                   <div class="score-number">
                     <figure><img src={SubImg} alt="" /></figure>
                     <h5>Identity Score</h5>
-                    <span class="percentage-num">{userRiskPolicy?.scoreInPercentage || 81}<sub>%</sub></span>
+                    <span class="percentage-num">{userRiskPolicy?.scoreInPercentage || 0}<sub>%</sub></span>
                     <div class="readmore text-center mt-4"><a href="#">Learn more <i class="fa-solid fa-chevron-right"></i></a></div>
                   </div>
                 </div>
@@ -132,7 +143,7 @@ export const CustomerDashboard = () => {
                     <div class="score-number">
                       <h5>Active users</h5>
                       <div class="con">
-                        <div class="percentage-num">{userRiskPolicy?.total || 7}</div>
+                        <div class="percentage-num">{userRiskPolicy?.total || 0}</div>
                       </div>
                     </div>
                   </div>
@@ -140,7 +151,7 @@ export const CustomerDashboard = () => {
                     <div class="score-number">
                       <h5>Open findings</h5>
                       <div class="con">
-                        <div class="percentage-num">5</div>
+                        <div class="percentage-num">0</div>
                         <div class="readmore text-center mt-4"><a href="#">View security health <i class="fa-solid fa-chevron-right"></i></a></div>
                       </div>
                     </div>

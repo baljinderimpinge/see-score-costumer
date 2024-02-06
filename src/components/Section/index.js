@@ -24,10 +24,11 @@ const Section = () => {
     instance.logoutPopup(logoutRequest);
     localStorage.removeItem('isLogind')
   }
+  let companyname = localStorage.getItem("companyName");
   return (
     <>
       <section class="ptb-85">
-        <h1 class="icon-heading"><img src={BagImg} />Company Name Here</h1>
+        <h1 class="icon-heading"><img src={BagImg} />{companyname}</h1>
       </section>
       <AuthenticatedTemplate>
         {<Link onClick={() => signOutClickHandler(instance)}>Logout</Link>}

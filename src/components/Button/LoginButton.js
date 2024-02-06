@@ -57,6 +57,8 @@ const LoginButton = () => {
               setLoading(false)
               toast.success('Login  successfully!', { position: toast.POSITION.TOP_RIGHT });
               localStorage.setItem("token", idToken.__raw)
+              console.log(resuilt.data.data.app_metadata.bussinessName,"resuilt.data.data.app_metadata.bussinessName")
+              localStorage.setItem("companyName",resuilt.data.data.app_metadata.bussinessName )
               console.log(resuilt, "resuilt", idToken)
               navigate('/custumer-dashboard');
             }, 2000)

@@ -426,7 +426,7 @@ main {
 .accordion-button {
     font-size: 18px;
     font-weight: bold;
-    padding: 36px 57px;
+    padding: 30px 57px;
     border: 0;
     border-radius: 8px;
     box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.1);
@@ -441,7 +441,7 @@ main {
 }
 
 .accordion-button {
-    /* background: url(../images/arrow.png); */
+    background: url(../src/assets/images/new/arrow.png);
     background-repeat: no-repeat;
     background-position: 96% center;
     background-color: #fff;
