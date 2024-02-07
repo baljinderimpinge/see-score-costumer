@@ -19,7 +19,7 @@ import { useMsal } from '@azure/msal-react';
 
 const Header = () => {
   const { logout, isAuthenticated, user } = useAuth0();
-  const [name, setName] = useState('')
+  const [name, setName] = useState(localStorage.getItem("username"))
   const { instance } = useMsal();
 
   // useEffect(() => {
@@ -32,11 +32,11 @@ const Header = () => {
   //   }
 
   // }, [instance, user])
-  useEffect(() => {
-    if (user) {
-      setName(user.name);
-    }
-  }, [user]);
+  // useEffect(() => {
+  //   if (user) {
+  //     setName(user.name);
+  //   }
+  // }, [user]);
   return (
     <>
       <header>

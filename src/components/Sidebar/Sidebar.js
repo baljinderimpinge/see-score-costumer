@@ -21,8 +21,8 @@ export default function Sidebar(props) {
                     <div className="row">
                         <div className="col-12">
                             <ul>
-                                <li><Link to="/custumer-dashboard">Dashboard</Link></li>
-                                <li><a href="#"><img src={Icon3} alt="" />Customer onboarding</a></li>
+                                <li><Link to="/admin-dashboard">Dashboard</Link></li>
+                                <li><Link to="/onboarding-customer"><img src={Icon3} alt="" />Customer onboarding</Link></li>
                                 <li><Link to="/view-customer"><img src={Icon5} alt="" />View customers</Link></li>
                                 <li><a href="#"><img src={Icon6} alt="" />Logout</a></li>
                             </ul>
@@ -40,7 +40,7 @@ export default function Sidebar(props) {
                     <div className="row">
                         <div className="col-12">
                             <ul>
-                                <li><Link to="/custumer-dashboard"> <img src={Icon1} alt="" /><span>Dashboard</span></Link></li>
+                                <li><Link to="/customer-dashboard"> <img src={Icon1} alt="" /><span>Dashboard</span></Link></li>
                                 <li><Link to="/security-health"> <img src={Icon2} alt="" /><span>Security health</span></Link></li>
                                 <li><Link to="/asset-landscape"> <img src={Icon3} alt="" /><span>Asset landscape</span></Link></li>
                                 <li><Link to="/insurance"> <img src={Icon4} alt="" /><span>Insurance</span></Link></li>

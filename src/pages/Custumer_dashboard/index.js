@@ -12,7 +12,23 @@ import SubImg from "../../assets/images/new/subtract.svg"
 import IdImg from "../../assets/images/new/identity-shape.svg"
 import ChartImg from "../../assets/images/new/chart.jpg"
 import { CacheLookupPolicy } from '@azure/msal-browser';
+import { useAuth0 } from '@auth0/auth0-react';
+import styled from '@emotion/styled';
+import { ToastContainer } from 'react-toastify';
+import { ClipLoader } from "react-spinners";
 
+const FullPageLoader = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.8); /* semi-transparent white background */
+  z-index: 1000;
+`;
 
 export const CustomerDashboard = () => {
   const { instance, inProgress } = useMsal();
@@ -20,9 +36,11 @@ export const CustomerDashboard = () => {
   const [accessToken, setAccessToken] = useState()
   const [accessTokenStatus, setAccessTokenStatus] = useState(false)
   const [userRiskPolicy, setUserRiskPolicy] = useState()
+  const [ findingCount, setFindingCount]=useState()
   // Log or use the items
   // console.log(allSessionStorageItems,"allSessionStorageItems");
-
+//   const { loginWithRedirect, user, isAuthenticated, getIdTokenClaims } = useAuth0();
+// console.log(isAuthenticated,user)
   const styles = {
     background: `url(${IdImg})`,
     backgroundRepeat: 'no-repeat',
@@ -60,7 +78,8 @@ export const CustomerDashboard = () => {
             }
             localStorage.setItem("email",result?.data?.data?.email)
             const data = await axios.post(`${API_BASE_URL}/user/getScoreData`, payload)
-            console.log(data?.data.data[0])
+            console.log(data?.data.findingCount)
+            setFindingCount(data?.data?.findingCount)
             setUserRiskPolicy(data?.data?.data[0])  
           } catch (error) {
             console.log(error, "error")
@@ -120,14 +139,16 @@ export const CustomerDashboard = () => {
           </div>
         </main>
       </UnauthenticatedTemplate>
-      <AuthenticatedTemplate>
+      <AuthenticatedTemplate>  <>
         <Sidebar />
+        
         <main>
           <Header />
           <div class="content-page">
             <Section />
 
             <h2 class="mb-4">Risk dashboard</h2>
+            {userRiskPolicy?<>
             <section>
               <div class="score-main">
                 <div class="bg-white border-radius-30 score first-score" style={styles}>
@@ -151,7 +172,7 @@ export const CustomerDashboard = () => {
                     <div class="score-number">
                       <h5>Open findings</h5>
                       <div class="con">
-                        <div class="percentage-num">0</div>
+                        <div class="percentage-num">{findingCount}</div>
                         <div class="readmore text-center mt-4"><a href="#">View security health <i class="fa-solid fa-chevron-right"></i></a></div>
                       </div>
                     </div>
@@ -166,27 +187,22 @@ export const CustomerDashboard = () => {
               </div>
             </section>
             <section>
-              {/* <div className="container">
-                <div className="bg-white border-radius-15 open-risk">
-                  <h2 className="text-primary">Open Risks</h2>
-                  <p>Click to see a detailed explanation. </p>
-                  <div className="mt-4">
-                    <ul className="list-unstyled risk">
-                      <li>Ensure user consent to apps accessing company data on their behalf is not allowed</li>
-                      <li>Ensure the 'Password expiration policy' is set to 'Set passwords to never expire (recommended)'</li>
-                      <li>Enable Conditional Access policies to block legacy authentication</li>
-                      <li>Ensure multifactor authentication is enabled for all users</li>
-                      <li>Ensure multifactor authentication is enabled for all users in administrative roles</li>
-                      <li>Enable Azure AD Identity Protection sign-in risk policies</li>
-                    </ul>
-                  </div>
-                </div>
-              </div> */}
+
               <div class="update-date"><span>Last updated - 15/01/2024, 11:00:00</span></div>
             </section>
+            </>
+            :
+         <> <FullPageLoader><ClipLoader size={50} color={'#000'} loading={true} /></FullPageLoader>
+          <ToastContainer /> </>
+       
+             }
           </div>
         </main>
+        
+        </>
+        
         <footer></footer>
+       
       </AuthenticatedTemplate>
     </>
   );

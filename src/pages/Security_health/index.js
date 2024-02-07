@@ -7,7 +7,21 @@ import arrow from "../../assets/images/new/white-arrow.svg"
 
 import axios from "axios";
 import { API_BASE_URL } from "../../lib/constant";
-
+import { ToastContainer } from 'react-toastify';
+import { ClipLoader } from "react-spinners";
+import styled from "@emotion/styled";
+const FullPageLoader = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.8); /* semi-transparent white background */
+  z-index: 1000;
+`;
 const SecurityHealth = () => {
     const [showTogel, setShowtoggel] = useState([])
     const [recomendationData, setRecomendationData] = useState()
@@ -53,52 +67,54 @@ const SecurityHealth = () => {
                 </section>
                 <section>
                     <h2 class="mb-4 icon-heading"><img src={IconImg} alt="" />Identity recommendations</h2>
-                    <div className="accordion" id="accordionExample">
-                        {recomendationData && recomendationData.length > 0 && recomendationData.map((item, index) => {
-                            const accordionId = `accordion-${item.id}-${index}`; // Unique identifier
-                            const collapseId = `collapse-${item.id}-${index}`; // Unique identifier
-                            return (
-                                <div key={accordionId} className="accordion-item">
-                                    <h2 className="accordion-header" id={accordionId}>
-                                        <button onClick={() => show(item.id)} className={showTogel.includes(item.id) ? "accordion-button" : 'accordion-button collapsed'} type="button" data-bs-toggle="collapse"
-                                            data-bs-target={`#${collapseId}`} aria-expanded={showTogel.includes(item.id)} aria-controls={collapseId}>
-                                            <span className="txt">{item?.displayName}</span>  <span 
-                                            className={item.priority==  "low" ? "btn btn-yellow" : item.priority=="medium" ? "btn btn-orange" : "btn btn-red"} 
-                                           >{item?.priority}</span>
-                                        </button>
-                                    </h2>
-                                    <div id={collapseId} className={showTogel.includes(item.id) ? "accordion-collapse collapse show" : "accordion-collapse collapse"} aria-labelledby={accordionId} data-bs-parent="#accordionExample">
-                                        <div className="accordion-body">
-                                            <p><b>Insights</b><br />
-                                                {item?.insights}<br /><br /></p>
+                    {recomendationData && recomendationData.length > 0 ?
+                        <div className="accordion" id="accordionExample">
+                            {recomendationData && recomendationData.length > 0 && recomendationData.map((item, index) => {
+                                const accordionId = `accordion-${item.id}-${index}`; // Unique identifier
+                                const collapseId = `collapse-${item.id}-${index}`; // Unique identifier
+                                return (
+                                    <div key={accordionId} className="accordion-item">
+                                        <h2 className="accordion-header" id={accordionId}>
+                                            <button onClick={() => show(item.id)} className={showTogel.includes(item.id) ? "accordion-button" : 'accordion-button collapsed'} type="button" data-bs-toggle="collapse"
+                                                data-bs-target={`#${collapseId}`} aria-expanded={showTogel.includes(item.id)} aria-controls={collapseId}>
+                                                <span className="txt">{item?.displayName}</span>  <span
+                                                    className={item.priority == "low" ? "btn btn-yellow" : item.priority == "medium" ? "btn btn-orange" : "btn btn-red"}
+                                                >{item?.priority}</span>
+                                            </button>
+                                        </h2>
+                                        <div id={collapseId} className={showTogel.includes(item.id) ? "accordion-collapse collapse show" : "accordion-collapse collapse"} aria-labelledby={accordionId} data-bs-parent="#accordionExample">
+                                            <div className="accordion-body">
+                                                <p><b>Insights</b><br />
+                                                    {item?.insights}<br /><br /></p>
 
-                                            <p> <b>Description</b><br />
-                                                {item?.benefits}
-                                                <br /><br />
-                                            </p>
+                                                <p> <b>Description</b><br />
+                                                    {item?.benefits}
+                                                    <br /><br />
+                                                </p>
 
-                                            <b>Resolution steps</b>
-                                            {item && item?.actionSteps?.length > 0 && item.actionSteps.map((value, index) => {
-                                                return (
-                                                    <>
-                                                        <p>
+                                                <b>Resolution steps</b>
+                                                {item && item?.actionSteps?.length > 0 && item.actionSteps.map((value, index) => {
+                                                    return (
+                                                        <>
+                                                            <p>
 
-                                                            {value.text}</p>
+                                                                {value.text}</p>
 
-                                                        <a href={value?.actionUrl?.url} class="btn btn-primary icon-btn  mb-3" target="blank">Active <img src={arrow} alt="" /></a>
+                                                            <a href={value?.actionUrl?.url} class="btn btn-primary icon-btn  mb-3" target="blank">Active <img src={arrow} alt="" /></a>
 
-                                                    </>
+                                                        </>
 
-                                                )
-                                            })}
+                                                    )
+                                                })}
 
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            );
-                        })}
-                    </div>
-
+                                );
+                            })}
+                        </div>
+                        : <> <FullPageLoader><ClipLoader size={50} color={'#000'} loading={true} /></FullPageLoader>
+                            <ToastContainer /> </>}
 
 
                     <h2 class="mb-4 icon-heading mt-115"><img src="images/security-checklist.svg" alt="" />Security checklist</h2>

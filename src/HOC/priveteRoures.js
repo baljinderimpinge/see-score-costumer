@@ -5,21 +5,22 @@ import { useIsAuthenticated, useMsal } from '@azure/msal-react';
 // import { useMsal } from "@azure/msal-react";
 
 export const AuthenticatedRoute = () => {
-  const { isAuthenticated,user } = useAuth0();
+  const token = localStorage.getItem("token") 
+  console.log(token,"llllllllllll")  
+  return token ? <Outlet /> : <Navigate to="/" />
+};
 
-  const token = localStorage.getItem("token")
-  console.log(token)
-  console.log(isAuthenticated,user,"kkkkkkkkkkkk")
-  return token ? <Outlet /> : <Navigate to="/custumer-dashboard" />
+export const AuthenticatedAdminRoute = () => {
+  const token = localStorage.getItem("token") 
+  const role = localStorage.getItem("role")
+  return token && role=="admin" ? <Outlet /> : <Navigate to="/" />
 };
 
 export const MicrosoftAuthenticatedRoute = () => {
   const { instance } = useMsal();
-  const currentAccount = instance.getActiveAccount();
-  console.log(currentAccount,"currentAccount")
-  
+  const currentAccount = instance.getActiveAccount();  
   const isAuthenticated = useIsAuthenticated();
   console.log(isAuthenticated, "isAuthenticated")
-  return isAuthenticated  ? <Outlet /> : <Navigate to="/custumer-dashboard" />
+  return isAuthenticated  ? <Outlet /> : <Navigate to="/customer-dashboard" />
 };
 

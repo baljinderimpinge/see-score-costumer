@@ -8,9 +8,9 @@ import LoginButton from './components/Button/LoginButton';
 import LogoutButton from './components/Button/LogoutButton';
 import CustomerDashboard from './pages/Custumer_dashboard';
 import AdminDashBoard from './pages/Admin_dashboard';
-import {ViewCustomer} from './pages/Admin_dashboard/view_customer';
+import { ViewCustomer } from './pages/Admin_dashboard/view_customer';
 
-import { AuthenticatedRoute, MicrosoftAuthenticatedRoute } from './HOC/priveteRoures';  // Correct the import path
+import { AuthenticatedAdminRoute, AuthenticatedRoute, MicrosoftAuthenticatedRoute } from './HOC/priveteRoures';  // Correct the import path
 import Insurance from './pages/Insurance';
 import MicrosoftLoing from './pages/Login/microsoftLoing';
 import { AuthenticatedTemple, EventType } from "@azure/msal-browser"
@@ -20,7 +20,8 @@ import Assetlandscape from './pages/Asset_landscape';
 import Sidebar from './components/CompanyName/CompanyName';
 import Logout from './pages/Logout/Index';
 import Help from './pages/Help';
-import { AuthenticatedTemplate, UnauthenticatedTemplate, useMsal,  } from "@azure/msal-react";
+import { AuthenticatedTemplate, UnauthenticatedTemplate, useMsal, } from "@azure/msal-react";
+import { LoderPage } from './pages/Custumer_dashboard/loder.page';
 
 function App({ maslInstance }) {
 
@@ -30,21 +31,22 @@ function App({ maslInstance }) {
       <MsalProvider instance={maslInstance}>
         <BrowserRouter>
           <Routes>
-           
+
             <Route path="/" element={<LoginButton />} />
-
-
-            {/* <Route element={<AuthenticatedRoute />}> */}
-            <Route path="/custumer-dashboard" element={<CustomerDashboard />} />
-            <Route path="/admin-dashboard" element={<AdminDashBoard />} />
-            <Route path="/view-customer" element={< ViewCustomer />} />
-
-            <Route path="/security-health" element={<SecurityHealth />} />
-            <Route path="/asset-landscape" element={<Assetlandscape />} />
-            <Route path="/insurance" element={<Insurance />} />
-            <Route path="/help" element={<Help />} />
-            <Route path="/logout" element={<Logout />} />
-            {/* </Route> */}
+            <Route path="/fetching-coustumer" element={<LoderPage />} />
+            <Route element={<AuthenticatedRoute />}>
+              <Route path="/customer-dashboard" element={<CustomerDashboard />} />
+              <Route path="/security-health" element={<SecurityHealth />} />
+              <Route path="/asset-landscape" element={<Assetlandscape />} />
+              <Route path="/insurance" element={<Insurance />} />
+              <Route path="/help" element={<Help />} />
+              <Route path="/logout" element={<Logout />} />
+            </Route>
+            <Route element={<AuthenticatedAdminRoute />}>
+              <Route path="/admin-dashboard" element={<AdminDashBoard />} />
+              <Route path="/onboarding-customer" element={<AdminDashBoard />} />
+              <Route path="/view-customer" element={< ViewCustomer />} />
+            </Route>
           </Routes>
         </BrowserRouter>
       </MsalProvider>
@@ -58,12 +60,12 @@ export default App;
 
 
 
- {/* <Route element={<AuthenticatedRoute />}> */}
-            {/* <Route path="/microsoftLoing" element={<MicrosoftLoing/>} /> */}
-            {/* <Route element={<MicrosoftAuthenticatedRoute/>}>
+{/* <Route element={<AuthenticatedRoute />}> */ }
+{/* <Route path="/microsoftLoing" element={<MicrosoftLoing/>} /> */ }
+{/* <Route element={<MicrosoftAuthenticatedRoute/>}>
             <Route path="/admin-dashboard" element={<AdminDashBoard />} />
             <Route path="/custumer-dashboard" element={<CustomerDashboard />} />
             <Route path="/Insurance" element={<Insurance />} />
             </Route> */}
-            {/* </Route> */}
-            {/* </Route> */}
+{/* </Route> */ }
+{/* </Route> */ }
