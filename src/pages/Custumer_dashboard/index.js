@@ -98,6 +98,8 @@ export const CustomerDashboard = () => {
             
             setFindingCount(data?.data?.findingCount)
             setUserRiskPolicy(data?.data?.data[0])
+            setTokenHandle(true)
+
           } catch (error) {
             // fetchData()
             setTokenHandle(true)
