@@ -157,7 +157,7 @@ export const CustomerDashboard = () => {
             <Section />
 
             <h2 class="mb-4">Risk dashboard</h2>
-            {true ? <>
+            {tokenHandle ? <>
               <section>
                 <div class="score-main">
                   <div class="bg-white border-radius-30 score first-score" style={styles}>

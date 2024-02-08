@@ -69,7 +69,7 @@ const SecurityHealth = () => {
             status:2
         }
         const securityresult = await axios.put(`${API_BASE_URL}/user/updatesecurity`, secPayload);
-    console.log(securityresult,"securityresultsecurityresult")
+
     const payload = {
         email: email
     }
