@@ -25,6 +25,7 @@ const FullPageLoader = styled.div`
 const SecurityHealth = () => {
     const [showTogel, setShowtoggel] = useState([])
     const [recomendationData, setRecomendationData] = useState()
+    const [securityData, setSecurityData] = useState()
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -34,8 +35,12 @@ const SecurityHealth = () => {
                 }
 
                 const response = await axios.post(`${API_BASE_URL}/user/recomen`, payload);
-                console.log(response.data.data);
+
+                const response1 = await axios.post(`${API_BASE_URL}/user/getsecurity`, payload);
+                //console.log(response.data.data);
+                console.log(response1.data.data);
                 setRecomendationData(response.data.data)
+                setSecurityData(response1.data.data)
             } catch (error) {
                 console.error('Error fetching data:', error);
             }
@@ -57,6 +62,20 @@ const SecurityHealth = () => {
         }
     }
     let companyname = localStorage.getItem("companyName");
+    const securityStatusChangeFun = async (securityid, email)=>{
+        const secPayload = {
+            email: email,
+            securityChecklistId: securityid,
+            status:2
+        }
+        const securityresult = await axios.put(`${API_BASE_URL}/user/updatesecurity`, secPayload);
+    console.log(securityresult,"securityresultsecurityresult")
+    const payload = {
+        email: email
+    }
+    const response1 = await axios.post(`${API_BASE_URL}/user/getsecurity`, payload);
+    setSecurityData(response1.data.data)
+    }
     return (<>
         <Sidebar />
         <main>
@@ -118,114 +137,42 @@ const SecurityHealth = () => {
 
 
                     <h2 class="mb-4 icon-heading mt-115"><img src="images/security-checklist.svg" alt="" />Security checklist</h2>
-                    <div class="accordion" id="accordionExample">
-                        <div class="accordion-item">
-                            <h2 class="accordion-header" id="headingfour">
-                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapsefour" aria-expanded="true" aria-controls="collapsefour">
-                                    <span class="txt">Enforce complex passwords</span> <span class="btn btn-primary">Critical</span>
-                                </button>
-                            </h2>
-                            <div id="collapsefour" class="accordion-collapse collapse show" aria-labelledby="headingfour" data-bs-parent="#accordionExample">
-                                <div class="accordion-body">
-                                    <p><b>Description</b><br />
-                                        Assign more than one user a global administrator role in your organization. Go to Microsoft Entra ID {">"} Roles and administrators and select the Global administrator role in the table. Then click Add assignments."</p>
 
-                                    <a href="#" class="btn btn-primary icon-btn">Mark as complete <img src="images/white-arrow.svg" alt="" /></a>
+                    {recomendationData && recomendationData.length > 0 ?
+                        <div className="accordion" id="accordionExample">
+                            {securityData && securityData.length > 0 && securityData.map((item, index) => {
+                                const accordionId = `accordion-${item.id}-${index}`; // Unique identifier
+                                const collapseId = `collapse-${item.id}-${index}`; // Unique identifier
+                                return (
+                                    <div key={accordionId} className="accordion-item">
+                                        <h2 className="accordion-header" id={accordionId}>
+                                            <button onClick={() => show(item.id)} className={showTogel.includes(item.id) ? "accordion-button" : 'accordion-button collapsed'} type="button" data-bs-toggle="collapse"
+                                                data-bs-target={`#${collapseId}`} aria-expanded={showTogel.includes(item.id)} aria-controls={collapseId}>
+                                                <span className="txt">{item?.title}</span>  
+                                                <span
+                                                    className={item.status == 1 ? "btn btn-red" :  "btn btn-primary"}
+                                                >{item?.status == 1?"Pending" : "Completed"}</span>
+                                            </button>
+                                        </h2>
+                                        <div id={collapseId} className={showTogel.includes(item.id) ? "accordion-collapse collapse show" : "accordion-collapse collapse"} aria-labelledby={accordionId} data-bs-parent="#accordionExample">
+                                            <div class="accordion-body">
+                                                <p><b>Description</b><br />
+                                                    Assign more than one user a global administrator role in your organization. Go to Microsoft Entra ID {">"} Roles and administrators and select the Global administrator role in the table. Then click Add assignments."</p>
 
-                                </div>
-                            </div>
+                                                <button type="button" class="btn btn-primary icon-btn" 
+                                                onClick={()=>securityStatusChangeFun(item.securityid, item.email)}
+                                                >Mark as complete <img src="images/white-arrow.svg" alt="" /></button>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                );
+                            })}
                         </div>
-                        <div class="accordion-item">
-                            <h2 class="accordion-header" id="headingfive">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapsefive" aria-expanded="false" aria-controls="collapsefive">
-                                    <span class="txt">Enable Multi-Factor Authentication for all accounts
+                        : <> <FullPageLoader><ClipLoader size={50} color={'#000'} loading={true} /></FullPageLoader>
+                            <ToastContainer /> </>}
 
-                                    </span>  <span class="btn btn-red">Pending</span>
-                                </button>
-                            </h2>
-                            <div id="collapsefive" class="accordion-collapse collapse" aria-labelledby="headingfive" data-bs-parent="#accordionExample">
-                                <div class="accordion-body">
-                                    <p><b>Description</b><br />
-                                        Assign more than one user a global administrator role in your organization. Go to Microsoft Entra ID {">"} Roles and administrators and select the Global administrator role in the table. Then click Add assignments."</p>
-
-                                    <a href="#" class="btn btn-primary icon-btn">Mark as complete <img src="images/white-arrow.svg" alt="" /></a>
-
-                                </div>
-                            </div>
-                        </div>
-                        <div class="accordion-item">
-                            <h2 class="accordion-header" id="headingsix">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapsesix" aria-expanded="false" aria-controls="collapsesix">
-                                    <span class="txt">Enforce complex passwords</span> <span class="btn btn-red">Pending</span>
-                                </button>
-                            </h2>
-                            <div id="collapsesix" class="accordion-collapse collapse" aria-labelledby="headingsix" data-bs-parent="#accordionExample">
-                                <div class="accordion-body">
-                                    <p><b>Description</b><br />
-                                        Assign more than one user a global administrator role in your organization. Go to Microsoft Entra ID {">"} Roles and administrators and select the Global administrator role in the table. Then click Add assignments."</p>
-
-                                    <a href="#" class="btn btn-primary icon-btn">Mark as complete <img src="images/white-arrow.svg" alt="" /></a>
-
-                                </div>
-                            </div>
-                        </div>
-
-
-                        <div class="accordion-item">
-                            <h2 class="accordion-header" id="headingseven">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseseven" aria-expanded="false" aria-controls="collapseseven">
-                                    <span class="txt">Enable email filtering</span> <span class="btn btn-red">Pending</span>
-                                </button>
-                            </h2>
-                            <div id="collapseseven" class="accordion-collapse collapse" aria-labelledby="headingseven" data-bs-parent="#accordionExample">
-                                <div class="accordion-body">
-                                    <p><b>Description</b><br />
-                                        Assign more than one user a global administrator role in your organization. Go to Microsoft Entra ID {">"} Roles and administrators and select the Global administrator role in the table. Then click Add assignments."</p>
-
-                                    <a href="#" class="btn btn-primary icon-btn">Mark as complete <img src="images/white-arrow.svg" alt="" /></a>
-
-                                </div>
-                            </div>
-                        </div>
-
-
-                        <div class="accordion-item">
-                            <h2 class="accordion-header" id="headingeight">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseeight" aria-expanded="false" aria-controls="collapseeight">
-                                    <span class="txt">Data backup scheme</span> <span class="btn btn-red">Pending</span>
-                                </button>
-                            </h2>
-                            <div id="collapseeight" class="accordion-collapse collapse" aria-labelledby="headingeight" data-bs-parent="#accordionExample">
-                                <div class="accordion-body">
-                                    <p><b>Description</b><br />
-                                        Assign more than one user a global administrator role in your organization. Go to Microsoft Entra ID {">"} Roles and administrators and select the Global administrator role in the table. Then click Add assignments."</p>
-
-                                    <a href="#" class="btn btn-primary icon-btn">Mark as complete <img src="images/white-arrow.svg" alt="" /></a>
-
-                                </div>
-                            </div>
-                        </div>
-
-
-                        <div class="accordion-item">
-                            <h2 class="accordion-header" id="headingnine">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapsenine" aria-expanded="false" aria-controls="collapsenine">
-                                    <span class="txt">Security Awareness Training for staff</span> <span class="btn btn-red">Pending</span>
-                                </button>
-                            </h2>
-                            <div id="collapsenine" class="accordion-collapse collapse" aria-labelledby="headingnine" data-bs-parent="#accordionExample">
-                                <div class="accordion-body">
-                                    <p><b>Description</b><br />
-                                        Assign more than one user a global administrator role in your organization. Go to Microsoft Entra ID {">"} Roles and administrators and select the Global administrator role in the table. Then click Add assignments."</p>
-
-                                    <a href="#" class="btn btn-primary icon-btn">Mark as complete <img src="images/white-arrow.svg" alt="" /></a>
-
-                                </div>
-                            </div>
-                        </div>
-
-
-                    </div>
+                  
 
 
                 </section>

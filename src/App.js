@@ -33,7 +33,7 @@ function App({ maslInstance }) {
           <Routes>
 
             <Route path="/" element={<LoginButton />} />
-            <Route path="/fetching-coustumer" element={<LoderPage />} />
+            <Route path="/fetching-customer" element={<LoderPage />} />
             <Route element={<AuthenticatedRoute />}>
               <Route path="/customer-dashboard" element={<CustomerDashboard />} />
               <Route path="/security-health" element={<SecurityHealth />} />

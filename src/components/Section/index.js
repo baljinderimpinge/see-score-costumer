@@ -18,8 +18,8 @@ const Section = () => {
   const signOutClickHandler = (instance) => {
     const logoutRequest = {
       account: instance.getAccountByHomeId(homeId),
-      mainWindowRedirectUri: "https://seescore.urtestsite.com/custumer-dashboard",
-      postLogoutRedirectUri: "https://seescore.urtestsite.com/custumer-dashboard"
+      mainWindowRedirectUri: "https://seescore.urtestsite.com/customer-dashboard",
+      postLogoutRedirectUri: "https://seescore.urtestsite.com/customer-dashboard"
     }
     instance.logoutPopup(logoutRequest);
     localStorage.removeItem('isLogind')

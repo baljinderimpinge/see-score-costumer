@@ -171,7 +171,7 @@ const LoginButton = () => {
   // Directly show Auth0 login page 
   console.log(window.location.origin,"window.location.origin")
   loginWithRedirect({
-    redirectUri: `${window.location.origin}/fetching-coustumer`
+    redirectUri: `${window.location.origin}/fetching-customer`
   });
 
   return (
