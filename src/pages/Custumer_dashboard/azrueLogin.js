@@ -62,12 +62,13 @@ export const MicrosoftLogin = () => {
     const fetchData = async () => {
         try {
             const account = instance.getAllAccounts()
-            instance.setActiveAccount(account[0].username);
+            // instance.setActiveAccount(account[0].username);
 
             // const data = await handleResponse()
          
 
                 if (accounts.length > 0) {
+                    instance.setActiveAccount(account[0].username);
                     const request = {
                         scopes: loginRequest.scopes,
                         account: accounts[0]
