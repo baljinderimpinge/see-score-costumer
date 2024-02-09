@@ -76,7 +76,7 @@ useEffect(()=>{
       console.log(error.response.data.status
         ,"error")
 
-        if(error.response.data.status == 200){
+        if(error.response.data.status == 401){
           setLoder(true)
           setAccessTokenStatus(false)
         }
@@ -149,7 +149,7 @@ useEffect(()=>{
             </>
               :
               
-<p>Your account is not authorized!</p> 
+             <p>Your account is not authorized!</p> 
             }
 
         </>:<> <FullPageLoader><ClipLoader size={50} color={'#000'} /></FullPageLoader>
