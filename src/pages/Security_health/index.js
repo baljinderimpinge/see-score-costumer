@@ -142,7 +142,7 @@ const SecurityHealth = () => {
 
                     <h2 className="mb-4 icon-heading mt-115"><img src="images/security-checklist.svg" alt="" />Security checklist</h2>
 
-                    {recomendationData && recomendationData.length > 0 ?
+                    {loder ?
                         <div className="accordion" id="accordionExample">
                             {securityData && securityData.length > 0 && securityData.map((item, index) => {
                                 const accordionId = `accordion-${item.id}-${index}`; // Unique identifier
