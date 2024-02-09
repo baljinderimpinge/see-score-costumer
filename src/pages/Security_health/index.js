@@ -26,6 +26,7 @@ const SecurityHealth = () => {
     const [showTogel, setShowtoggel] = useState([])
     const [recomendationData, setRecomendationData] = useState()
     const [securityData, setSecurityData] = useState()
+    const [loder,setLoder]= useState(false)
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -41,8 +42,10 @@ const SecurityHealth = () => {
                 console.log(response1.data.data);
                 setRecomendationData(response.data.data)
                 setSecurityData(response1.data.data)
+                setLoder(true)
             } catch (error) {
                 console.error('Error fetching data:', error);
+                setLoder(true)
             }
         };
 
@@ -75,6 +78,7 @@ const SecurityHealth = () => {
     }
     const response1 = await axios.post(`${API_BASE_URL}/user/getsecurity`, payload);
     setSecurityData(response1.data.data)
+  
     }
     return (<>
         <Sidebar />
@@ -86,7 +90,7 @@ const SecurityHealth = () => {
                 </section>
                 <section>
                     <h2 className="mb-4 icon-heading"><img src={IconImg} alt="" />Identity recommendations</h2>
-                    {recomendationData && recomendationData.length > 0 ?
+                    {loder?
                         <div className="accordion" id="accordionExample">
                             {recomendationData && recomendationData.length > 0 && recomendationData.map((item, index) => {
                                 const accordionId = `accordion-${item.id}-${index}`; // Unique identifier
