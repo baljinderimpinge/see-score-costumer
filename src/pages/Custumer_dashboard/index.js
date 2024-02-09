@@ -11,11 +11,12 @@ import Sidebar from '../../components/Sidebar/Sidebar';
 import SubImg from "../../assets/images/new/subtract.svg"
 import IdImg from "../../assets/images/new/identity-shape.svg"
 import ChartImg from "../../assets/images/new/chart.jpg"
-import { CacheLookupPolicy } from '@azure/msal-browser';
+// import { CacheLookupPolicy } from '@azure/msal-browser';
 import { useAuth0 } from '@auth0/auth0-react';
 import styled from '@emotion/styled';
 import { ToastContainer } from 'react-toastify';
 import { ClipLoader } from "react-spinners";
+import { InteractionRequiredAuthError } from "@azure/msal-browser";
 
 const FullPageLoader = styled.div`
   position: fixed;
@@ -31,13 +32,15 @@ const FullPageLoader = styled.div`
 `;
 
 export const CustomerDashboard = () => {
-  const { instance, inProgress } = useMsal();
+  const { instance, inProgress, accounts } = useMsal();
+
   const allSessionStorageItems = { ...sessionStorage };
   const [accessToken, setAccessToken] = useState()
   const [accessTokenStatus, setAccessTokenStatus] = useState(false)
   const [userRiskPolicy, setUserRiskPolicy] = useState()
   const [findingCount, setFindingCount] = useState()
-  const [tokenHandle, setTokenHandle] = useState(false)
+  const [azureToken, setAzureToken] = useState(localStorage.getItem("azureToken"))
+  const [loder,setLoder] =useState(false)
   // Log or use the items
   // console.log(allSessionStorageItems,"allSessionStorageItems");
   //   const { loginWithRedirect, user, isAuthenticated, getIdTokenClaims } = useAuth0();
@@ -50,75 +53,38 @@ export const CustomerDashboard = () => {
 
 
   const account = instance.getAllAccounts()
-  console.log(account, inProgress, instance, "accountaccount")
+  // console.log(account, "kkkkkkkkk", inProgress, "llllllllll", instance, "accountaccount")
 
-  var username;
-  async function handleResponse(resp) {
 
-    const currentAccounts = instance.getAllAccounts();
-    if (currentAccounts === null) {
-      return;
-    } else if (currentAccounts.length > 1) {
-      console.warn("MsalAuthService >>> handleResponse >>> Multiple accounts detected.");
-    } else if (currentAccounts.length === 0) {
-      signIn();
-    } else if (currentAccounts.length === 1) {
-      username = currentAccounts[0].username;
+useEffect(()=>{
+  getScoreData()
+},[azureToken])
+
+  const getScoreData = async()=>{
+    const payload = {
+      token: azureToken
+    }
+    try {
+      const data = await axios.post(`${API_BASE_URL}/user/getScoreData`, payload)
+      console.log(data.data,"llllllllllllllll")
+      setUserRiskPolicy(data?.data?.data[0])
+      setFindingCount(data?.data?.findingCount)
+      setLoder(true)
+      setAccessTokenStatus(true)
+
+    } catch (error) {
+      console.log(error.response.data.status
+        ,"error")
+
+        if(error.response.data.status == 200){
+          setLoder(true)
+          setAccessTokenStatus(false)
+        }
     }
 
   }
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const account = instance.getAllAccounts()
-        // const data = await handleResponse()
-         if (!accessTokenStatus) {
-          setTokenHandle(false)
 
-          const silentRequest = { cacheLookupPolicy: CacheLookupPolicy.Default };
-          const token = await instance.acquireTokenSilent(account[0].username);
-          setAccessToken(token.accessToken);
-          setAccessTokenStatus(true)
-          // const payload = {
-          //   email: token?.account?.username
-          // }
-          const payload1 = {
-            email: token?.account?.username,
-            token: token?.accessToken
-          }
-          try {
-            const result = await axios.post(`${API_BASE_URL}/user/addToken`, payload1)
-            console.log(result?.data?.data?.email, "resultkljjjjjjjj")
-            const payload = {
-              email: result?.data?.data?.email
-            }
-            localStorage.setItem("email", result?.data?.data?.email)
-            const data = await axios.post(`${API_BASE_URL}/user/getScoreData`, payload)
-            
-            setFindingCount(data?.data?.findingCount)
-            setUserRiskPolicy(data?.data?.data[0])
-            setTokenHandle(true)
-
-          } catch (error) {
-            // fetchData()
-            setTokenHandle(true)
-            
-            console.log(error, "wwwwwwwwwwwwwwwwwwwwerror")
-          }
-        }
-      } catch (error) {
-        setTokenHandle(true)
-        console.error('Token acquisition error:', error);
-      }
-    };
-
-    fetchData();
-  }, [instance, account, inProgress]);
-
-  function signIn() {
-    instance.loginRedirect(loginRequest);
-  }
   const handleRedirect = () => {
     try {
       instance.loginRedirect(loginRequest);
@@ -129,69 +95,48 @@ export const CustomerDashboard = () => {
 
   return (
     <>
-      <UnauthenticatedTemplate>
+     <>
         <Sidebar />
         <main>
           <Header />
-          <div class="content-page">
-            <Section />
-            <section>
-              <h2>Get started</h2>
-              <p class="fw-semibold">Select your identity provider below to get started</p>
-              <div class="row mt-4 gy-4">
-                <div class="col-md-4">
-                  <div class="bg-white p-5 border-radius-15 text-center">
-                    <figure><img onClick={handleRedirect} src={images} alt="" /></figure>
-                    <h5 onClick={handleRedirect} >Microsoft Azure</h5>
-                  </div>
-                </div>
-              </div>
-            </section>
-          </div>
-        </main>
-      </UnauthenticatedTemplate>
-      <AuthenticatedTemplate>  <>
-        <Sidebar />
-
-        <main>
-          <Header />
-          <div class="content-page">
+          <div className="content-page">
             <Section />
 
-            <h2 class="mb-4">Risk dashboard</h2>
-            {tokenHandle ? <>
+            <h2 className="mb-4">Risk dashboard</h2>
+            {loder ?  <> 
+            {accessTokenStatus ? <>
               <section>
-                <div class="score-main">
-                  <div class="bg-white border-radius-30 score first-score" style={styles}>
-                    <div class="score-number">
+                <div className="score-main">
+                  <div className="bg-white border-radius-30 score first-score" style={styles}>
+                    <div className="score-number">
                       <figure><img src={SubImg} alt="" /></figure>
                       <h5>Identity Score</h5>
-                      <span class="percentage-num">{userRiskPolicy?.scoreInPercentage || 0}<sub>%</sub></span>
-                      <div class="readmore text-center mt-4"><a href="#">Learn more <i class="fa-solid fa-chevron-right"></i></a></div>
+                      <span className="percentage-num">{userRiskPolicy?.scoreInPercentage || 0}<sub>%</sub></span>
+                      <div className="readmore text-center mt-4"><a href="#">Learn more <i className="fa-solid fa-chevron-right"></i></a></div>
                     </div>
                   </div>
-                  <div class="second-score">
-                    <div class="bg-white border-radius-30 score">
-                      <div class="score-number">
+                  <div className="second-score">
+                    <div className="bg-white border-radius-30 score">
+                      <div className="score-number">
                         <h5>Active users</h5>
-                        <div class="con">
-                          <div class="percentage-num">{userRiskPolicy?.total || 0}</div>
+                        <div className="con">
+                          <div className="percentage-num">{userRiskPolicy?.total || 0}</div>
                         </div>
                       </div>
                     </div>
-                    <div class="bg-white border-radius-30 score">
-                      <div class="score-number">
+                    <div className="bg-white border-radius-30 score">
+                      <div className="score-number">
                         <h5>Open findings</h5>
-                        <div class="con">
-                          <div class="percentage-num">{findingCount|| 0}</div>
-                          <div class="readmore text-center mt-4"><a href="#">View security health <i class="fa-solid fa-chevron-right"></i></a></div>
+                        <div className="con">
+                          <div className="percentage-num">{findingCount || 0}</div>
+                          <div className="readmore text-center mt-4"><a href="#">View security health <i className="fa-solid fa-chevron-right"></i></a></div>
                         </div>
                       </div>
                     </div>
-                    <div class="bg-white border-radius-30 score last">
-                      <div class="score-number text-start">
+                    <div className="bg-white border-radius-30 score last">
+                      <div className="score-number text-start">
                         <h5>Identity score trend</h5>
-                        <img src={ChartImg} alt="" class="w-100" />
+                        <img src={ChartImg} alt="" className="w-100" />
                       </div>
                     </div>
                   </div>
@@ -199,22 +144,21 @@ export const CustomerDashboard = () => {
               </section>
               <section>
 
-                <div class="update-date"><span>Last updated - 15/01/2024, 11:00:00</span></div>
+                <div className="update-date"><span>Last updated - 15/01/2024, 11:00:00</span></div>
               </section>
             </>
               :
-              <> <FullPageLoader><ClipLoader size={50} color={'#000'} /></FullPageLoader>
-                <ToastContainer /> </>
-
+              
+<p>Your account is not authorized!</p> 
             }
+
+        </>:<> <FullPageLoader><ClipLoader size={50} color={'#000'} /></FullPageLoader>
+                <ToastContainer /> </>}
           </div>
         </main>
 
       </>
-
         <footer></footer>
-
-      </AuthenticatedTemplate>
     </>
   );
 };

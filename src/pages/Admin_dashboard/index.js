@@ -70,7 +70,7 @@ function AdminDashBoard() {
       <Sidebar admin={isAdmin} />
       <main>
         <header>
-          <div class="top-name">
+          <div className="top-name">
             <img src={HeadImg} alt="" /> Guardian Admin Portal
           </div>
           <div className="dropdown"><button className="btn dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false"><b>Welcome</b> {name || 'admin'} </button>
@@ -97,7 +97,7 @@ function AdminDashBoard() {
               <h5 className="text-primary">Company information</h5>
               <div className="form-group row">
                 <label className="col-sm-2 col-form-label">Business Name</label>
-                <div class="col-md-9">
+                <div className="col-md-9">
                   <input
                     type="text" className="form-control"
                     placeholder=""
@@ -106,7 +106,7 @@ function AdminDashBoard() {
                   /></div></div>
               <div className="form-group row">
                 <label className="col-sm-2 col-form-label">Business Address</label>
-                <div class="col-md-9">
+                <div className="col-md-9">
                   <input
                     type="text" className="form-control"
                     placeholder=""
@@ -115,7 +115,7 @@ function AdminDashBoard() {
                   /></div></div>
               <div className="form-group row">
                 <label className="col-sm-2 col-form-label">Website</label>
-                <div class="col-md-9">
+                <div className="col-md-9">
                   <input
                     type="text" className="form-control"
                     placeholder=""
@@ -124,7 +124,7 @@ function AdminDashBoard() {
                   /></div></div>
               <div className="form-group row">
                 <label className="col-sm-2 col-form-label">Industry</label>
-                <div class="col-md-9">
+                <div className="col-md-9">
                   <input
                     type="text" className="form-control"
                     placeholder=""
@@ -137,7 +137,7 @@ function AdminDashBoard() {
               <h5 className="text-primary">Contact information</h5>
               <div className="form-group row">
                 <label className="col-sm-2 col-form-label">Contact Name</label>
-                <div class="col-md-10">
+                <div className="col-md-10">
                   <input
                     type="text" className="form-control"
                     placeholder=""
@@ -146,7 +146,7 @@ function AdminDashBoard() {
                   /></div></div>
               <div className="form-group row">
                 <label className="col-sm-2 col-form-label">Contact Number</label>
-                <div class="col-md-10">
+                <div className="col-md-10">
                   <input
                     type="text" className="form-control"
                     placeholder=""
@@ -155,7 +155,7 @@ function AdminDashBoard() {
                   /></div></div>
               <div className="form-group row">
                 <label className="col-sm-2 col-form-label">Contact Email</label>
-                <div class="col-md-10">
+                <div className="col-md-10">
                   <input
                     type="text" className="form-control"
                     placeholder=""

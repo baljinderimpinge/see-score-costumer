@@ -5,7 +5,7 @@ import { msalInstance } from './msalSetup';
 import { useEffect } from "react";
 
 
-const MicrosoftLogin = () => {
+const MicrosoftLogin1 = () => {
 
   const { instance } = useMsal();
 
@@ -26,28 +26,28 @@ const MicrosoftLogin = () => {
   return (
     <>
       <AuthenticatedTemplate>
-        <section class="ptb-110">
-          <div class="container">
+        <section className="ptb-110">
+          <div className="container">
             <h1>Welcome to Guardian</h1>
-            <div class="addition"><a href="#">Dashboard</a><a href="#">Insurance</a><a href="#">Alerts</a><a href="#">Help</a><a href="#">Logout <img src="images/out.svg" alt="" /></a></div>
-            <h2 class="mt-5">Let’s connect to your Identity Provider</h2>
-            <p class="fw-normal">Click your identity provider below to get started. You’ll need to be a Global Administrator to connect to the platform.</p>
+            <div className="addition"><a href="#">Dashboard</a><a href="#">Insurance</a><a href="#">Alerts</a><a href="#">Help</a><a href="#">Logout <img src="images/out.svg" alt="" /></a></div>
+            <h2 className="mt-5">Let’s connect to your Identity Provider</h2>
+            <p className="fw-normal">Click your identity provider below to get started. You’ll need to be a Global Administrator to connect to the platform.</p>
 
-            <div class="row mt-4 gy-4">
-              <div class="col-md-4">
-                <div class="bg-white p-5 border-radius-15 text-center">
+            <div className="row mt-4 gy-4">
+              <div className="col-md-4">
+                <div className="bg-white p-5 border-radius-15 text-center">
                   <figure><img src="images/logo1.svg" alt="" /></figure>
                   <h5>Microsoft Azure</h5>
                 </div>
               </div>
-              <div class="col-md-4">
-                <div class="bg-white p-5 border-radius-15 text-center">
+              <div className="col-md-4">
+                <div className="bg-white p-5 border-radius-15 text-center">
                   <figure><img src="images/logo1.svg" alt="" /></figure>
                   <h5>Microsoft Azure</h5>
                 </div>
               </div>
-              <div class="col-md-4">
-                <div class="bg-white p-5 border-radius-15 text-center">
+              <div className="col-md-4">
+                <div className="bg-white p-5 border-radius-15 text-center">
                   <figure><img src="images/logo1.svg" alt="" /></figure>
                   <h5>Microsoft Azure</h5>
                 </div>
@@ -68,5 +68,5 @@ const MicrosoftLogin = () => {
   );
 };
 
-export default MicrosoftLogin;
+export default MicrosoftLogin1;
 

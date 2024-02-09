@@ -80,12 +80,12 @@ const SecurityHealth = () => {
         <Sidebar />
         <main>
             <Header />
-            <div class="content-page">
-                <section class="ptb-85">
-                    <h1 class="icon-heading"><img src={IconImg1} />{companyname}</h1>
+            <div className="content-page">
+                <section className="ptb-85">
+                    <h1 className="icon-heading"><img src={IconImg1} />{companyname}</h1>
                 </section>
                 <section>
-                    <h2 class="mb-4 icon-heading"><img src={IconImg} alt="" />Identity recommendations</h2>
+                    <h2 className="mb-4 icon-heading"><img src={IconImg} alt="" />Identity recommendations</h2>
                     {recomendationData && recomendationData.length > 0 ?
                         <div className="accordion" id="accordionExample">
                             {recomendationData && recomendationData.length > 0 && recomendationData.map((item, index) => {
@@ -119,7 +119,7 @@ const SecurityHealth = () => {
 
                                                                 {value.text}</p>
 
-                                                            <a href={value?.actionUrl?.url} class="btn btn-primary icon-btn  mb-3" target="blank">Active <img src={arrow} alt="" /></a>
+                                                            <a href={value?.actionUrl?.url} className="btn btn-primary icon-btn  mb-3" target="blank">Active <img src={arrow} alt="" /></a>
 
                                                         </>
 
@@ -136,7 +136,7 @@ const SecurityHealth = () => {
                             <ToastContainer /> </>}
 
 
-                    <h2 class="mb-4 icon-heading mt-115"><img src="images/security-checklist.svg" alt="" />Security checklist</h2>
+                    <h2 className="mb-4 icon-heading mt-115"><img src="images/security-checklist.svg" alt="" />Security checklist</h2>
 
                     {recomendationData && recomendationData.length > 0 ?
                         <div className="accordion" id="accordionExample">
@@ -155,11 +155,11 @@ const SecurityHealth = () => {
                                             </button>
                                         </h2>
                                         <div id={collapseId} className={showTogel.includes(item.id) ? "accordion-collapse collapse show" : "accordion-collapse collapse"} aria-labelledby={accordionId} data-bs-parent="#accordionExample">
-                                            <div class="accordion-body">
+                                            <div className="accordion-body">
                                                 <p><b>Description</b><br />
                                                     Assign more than one user a global administrator role in your organization. Go to Microsoft Entra ID {">"} Roles and administrators and select the Global administrator role in the table. Then click Add assignments."</p>
 
-                                                <button type="button" class="btn btn-primary icon-btn" 
+                                                <button type="button" className="btn btn-primary icon-btn" 
                                                 onClick={()=>securityStatusChangeFun(item.securityid, item.email)}
                                                 >Mark as complete <img src="images/white-arrow.svg" alt="" /></button>
 

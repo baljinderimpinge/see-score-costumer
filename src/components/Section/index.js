@@ -27,8 +27,8 @@ const Section = () => {
   let companyname = localStorage.getItem("companyName");
   return (
     <>
-      <section class="ptb-85">
-        <h1 class="icon-heading"><img src={BagImg} />{companyname}</h1>
+      <section className="ptb-85">
+        <h1 className="icon-heading"><img src={BagImg} />{companyname}</h1>
       </section>
       <AuthenticatedTemplate>
         {<Link onClick={() => signOutClickHandler(instance)}>Logout</Link>}

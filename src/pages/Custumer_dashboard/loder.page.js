@@ -53,7 +53,18 @@ export const LoderPage = () => {
                 localStorage.setItem("token", idToken.__raw);
                 localStorage.setItem("username",result?.data?.data?.app_metadata?.name)
                 localStorage.setItem("companyName", result.data.data.app_metadata.bussinessName);
-                navigate('/customer-dashboard');
+                // console.log(result.data.data.user_id)
+                localStorage.setItem("userId", result.data.data.user_id);
+                const data = await axios.get(`${API_BASE_URL}/user/get-azure-token/${result.data.data.user_id}`)
+                console.log(data.data.data,"status  status  status;;;;;;;;;;;;;;;;;;;;;")
+                if(data.data.status=== 200){
+                    localStorage.setItem("azureToken",data.data.data.token)
+                  navigate('/customer-dashboard');
+                }else{
+                  navigate('/microsoft-login');
+                  
+                }
+                
               }
             }
           } catch (error) {

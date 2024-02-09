@@ -8,13 +8,17 @@ import { PublicClientApplication } from '@azure/msal-browser';
 const maslInstance = new PublicClientApplication(msalConfig)
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
+
 root.render(
-    <Auth0Provider
-        domain={domin}
-        clientId={clientId}
-        redirectUri={window.location.origin}>
-        <App maslInstance={maslInstance}/>
-    </Auth0Provider>
+    <React.StrictMode>
+        <Auth0Provider
+            domain={domin}
+            clientId={clientId}
+            redirectUri={window.location.origin}>
+            <App maslInstance={maslInstance} />
+        </Auth0Provider>
+    </React.StrictMode>,
+
 );
 
 

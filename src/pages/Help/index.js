@@ -10,14 +10,14 @@ const Help = () => {
             <Sidebar />
             <main>
                 <Header />
-                <div class="content-page">
-                    <section class="ptb-85">
-                        <h1 class="icon-heading"><img src={IconImg} />{companyname}</h1>
+                <div  className="content-page">
+                    <section  className="ptb-85">
+                        <h1  className="icon-heading"><img src={IconImg} />{companyname}</h1>
                     </section>
                     <section>
-                        <h2 class="mb-4">Insurance</h2>
+                        <h2  className="mb-4">Insurance</h2>
 
-                        <div class="bg-white border-radius-30 p-5 text-center">
+                        <div  className="bg-white border-radius-30 p-5 text-center">
                             Page coming soon
                         </div>
 

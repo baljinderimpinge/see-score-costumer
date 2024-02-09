@@ -12,7 +12,7 @@ import { ViewCustomer } from './pages/Admin_dashboard/view_customer';
 
 import { AuthenticatedAdminRoute, AuthenticatedRoute, MicrosoftAuthenticatedRoute } from './HOC/priveteRoures';  // Correct the import path
 import Insurance from './pages/Insurance';
-import MicrosoftLoing from './pages/Login/microsoftLoing';
+import MicrosoftLoing from './pages/Custumer_dashboard/azrueLogin';
 import { AuthenticatedTemple, EventType } from "@azure/msal-browser"
 import { MsalProvider } from '@azure/msal-react';
 import SecurityHealth from './pages/Security_health';
@@ -35,7 +35,9 @@ function App({ maslInstance }) {
             <Route path="/" element={<LoginButton />} />
             <Route path="/fetching-customer" element={<LoderPage />} />
             <Route element={<AuthenticatedRoute />}>
+            <Route path="/microsoft-login" element={<MicrosoftLoing />} />
               <Route path="/customer-dashboard" element={<CustomerDashboard />} />
+             
               <Route path="/security-health" element={<SecurityHealth />} />
               <Route path="/asset-landscape" element={<Assetlandscape />} />
               <Route path="/insurance" element={<Insurance />} />
