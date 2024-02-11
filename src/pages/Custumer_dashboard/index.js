@@ -65,6 +65,7 @@ useEffect(()=>{
       token: azureToken
     }
     try {
+      console.log(payload,"payload")
       const data = await axios.post(`${API_BASE_URL}/user/getScoreData`, payload)
       console.log(data.data,"llllllllllllllll")
       setUserRiskPolicy(data?.data?.data[0])
@@ -77,8 +78,11 @@ useEffect(()=>{
         ,"error")
 
         if(error.response.data.status == 401){
+          getScoreData()
+
           setLoder(true)
           setAccessTokenStatus(false)
+
         }
     }
 
@@ -97,9 +101,11 @@ useEffect(()=>{
     <>
      <>
         <Sidebar />
+       
         <main>
           <Header />
           <div className="content-page">
+          <ToastContainer />
             <Section />
 
             <h2 className="mb-4">Risk dashboard</h2>

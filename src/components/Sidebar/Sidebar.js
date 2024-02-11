@@ -8,13 +8,17 @@ import Icon6 from "../../assets/images/new/icon6.svg"
 import { Link } from 'react-router-dom';
 import { useMsal } from '@azure/msal-react';
 import { loginRequest } from '../../lib/authConfig';
+import { useNavigate } from 'react-router-dom';
 
 export default function Sidebar(props) {
     const { instance, inProgress, accounts } = useMsal();
+    const navigate = useNavigate();
 
         const azureLogout = () => {
             try {
-                instance.loginRedirect(loginRequest);
+                instance.logoutRedirect(loginRequest);
+                localStorage.clear()
+                navigate('/microsoft-login');
             } catch (error) {
                 console.error("Error during login redirect:", error);
             }
@@ -54,14 +58,14 @@ export default function Sidebar(props) {
                         <div className="col-12">
                             <ul>
                                 <li><Link to="/customer-dashboard"> <img src={Icon1} alt="" /><span>Dashboard</span></Link></li>
-                                <li><Link to="/security-health"> <img src={Icon2} alt="" /><span>Security health</span></Link></li>
+                                <li><Link to="/security-health"> <img src={Icon2} alt="" /><span>View open findings</span></Link></li>
                                 <li><Link to="/asset-landscape"> <img src={Icon3} alt="" /><span>Asset landscape</span></Link></li>
                                 <li><Link to="/insurance"> <img src={Icon4} alt="" /><span>Insurance</span></Link></li>
                                 <li><Link to="/help"> <img src={Icon5} alt="" /><span>Help</span></Link></li>
-                                <button onClick={()=> azureLogout()} ><img src={Icon6} alt="" /><span>Logout</span></button>
+                                <li onClick={()=> azureLogout()} ><img src={Icon6} alt="" /><span style={{color:"#fff",position:"relative", left:"2px", }}>Logout</span></li>
                             </ul>
                         </div>
-                    </div>
+                    </div> 
                 </aside>
 
             }

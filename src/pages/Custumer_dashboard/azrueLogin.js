@@ -74,7 +74,7 @@ export const MicrosoftLogin = () => {
                         account: accounts[0]
                     };
                     instance.acquireTokenSilent(request).then(response => {
-                        console.log(response.extExpiresOn.getMinutes(), "extExpiresOn")
+                        console.log(response, "extExpiresOn")
                         const payload1 = {
                             email: response?.account?.username,
                             token: response?.accessToken,
@@ -89,7 +89,6 @@ export const MicrosoftLogin = () => {
                         
                         axios.post(`${API_BASE_URL}/user/addToken`, payload1)
                         .then((response)=>{
-                            
                             console.log(response.data.data,"lllllllllllllll")
                             localStorage.setItem("azureToken",response?.data?.data?.token)
                             navigate('/customer-dashboard');

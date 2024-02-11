@@ -28,6 +28,7 @@ const SecurityHealth = () => {
     const [securityData, setSecurityData] = useState()
     const [loder,setLoder]= useState(false)
     useEffect(() => {
+        console.log("hello")
         const fetchData = async () => {
             try {
                 const email = localStorage.getItem("email")
@@ -38,7 +39,7 @@ const SecurityHealth = () => {
                 const response = await axios.post(`${API_BASE_URL}/user/recomen`, payload);
 
                 const response1 = await axios.post(`${API_BASE_URL}/user/getsecurity`, payload);
-                //console.log(response.data.data);
+                console.log(response.data.data);
                 console.log(response1.data.data);
                 setRecomendationData(response.data.data)
                 setSecurityData(response1.data.data)
@@ -138,10 +139,7 @@ const SecurityHealth = () => {
                         </div>
                         : <> <FullPageLoader><ClipLoader size={50} color={'#000'} loading={true} /></FullPageLoader>
                             <ToastContainer /> </>}
-
-
                     <h2 className="mb-4 icon-heading mt-115"><img src="images/security-checklist.svg" alt="" />Security checklist</h2>
-
                     {loder ?
                         <div className="accordion" id="accordionExample">
                             {securityData && securityData.length > 0 && securityData.map((item, index) => {
@@ -162,11 +160,9 @@ const SecurityHealth = () => {
                                             <div className="accordion-body">
                                                 <p><b>Description</b><br />
                                                     Assign more than one user a global administrator role in your organization. Go to Microsoft Entra ID {">"} Roles and administrators and select the Global administrator role in the table. Then click Add assignments."</p>
-
                                                 <button type="button" className="btn btn-primary icon-btn" 
                                                 onClick={()=>securityStatusChangeFun(item.securityid, item.email)}
                                                 >Mark as complete <img src="images/white-arrow.svg" alt="" /></button>
-
                                             </div>
                                         </div>
                                     </div>
@@ -174,11 +170,8 @@ const SecurityHealth = () => {
                             })}
                         </div>
                         : <> <FullPageLoader><ClipLoader size={50} color={'#000'} loading={true} /></FullPageLoader>
-                            <ToastContainer /> </>}
-
-                  
-
-
+                            <ToastContainer />
+                            </>}
                 </section>
             </div>
         </main>

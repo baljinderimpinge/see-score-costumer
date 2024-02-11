@@ -23,6 +23,8 @@ const Section = () => {
     }
     instance.logoutPopup(logoutRequest);
     localStorage.removeItem('isLogind')
+    localStorage.clear()
+    
   }
   let companyname = localStorage.getItem("companyName");
   return (
