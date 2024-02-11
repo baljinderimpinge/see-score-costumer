@@ -10,4 +10,3 @@ export const MICROSOFT_CLIENT_ID = 'cbaa1b09-522a-4a11-9aa3-7c04c0cc3498'
 export const AUTHORITY = 'https://login.microsoftonline.com/common'
 // export const REDIRECT_URL = 'http://localhost:4001/customer-dashboard'
 export const REDIRECT_URL =   'https://seescore.urtestsite.com/customer-dashboard'
-
