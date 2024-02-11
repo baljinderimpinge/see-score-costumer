@@ -52,7 +52,7 @@ export const CustomerDashboard = () => {
   };
 
 
-  const account = instance.getAllAccounts()
+  // const account = instance.getAllAccounts()
   // console.log(account, "kkkkkkkkk", inProgress, "llllllllll", instance, "accountaccount")
 
 
@@ -78,7 +78,7 @@ useEffect(()=>{
         ,"error")
 
         if(error.response.data.status == 401){
-          getScoreData()
+          // getScoreData()
 
           setLoder(true)
           setAccessTokenStatus(false)

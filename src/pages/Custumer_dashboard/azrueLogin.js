@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Header from '../../components/Header';
-import { useParams } from 'react-router-dom';
+import { json, useParams } from 'react-router-dom';
 import images from "../../assets/images/logo1.svg"
 import axios from 'axios';
 import { API_BASE_URL } from '../../lib/constant';
@@ -54,9 +54,22 @@ export const MicrosoftLogin = () => {
     };
 
 
-    const account = instance.getAllAccounts()
+    
 
-// console.log(account,"account")
+
+// const regexPattern = /refreshtoken/i;
+// const isRefreshTokenPresent = regexPattern.test();
+
+// const foundKey = Object.keys(data).find(key => regexPattern.test(key));
+// console.log(data[foundKey])
+// if(foundKey){
+//   const refreshStr= data[foundKey]
+//   const refreshObj = JSON.parse(refreshStr)
+//   console.log(refreshObj.secret)
+const account = instance.getAllAccounts()
+
+// }
+// console.log(foundKey,"foundKey")
 //  if(account.length>=1){
     useEffect(()=>{
     const fetchData = async () => {
@@ -74,17 +87,25 @@ export const MicrosoftLogin = () => {
                         account: accounts[0]
                     };
                     instance.acquireTokenSilent(request).then(response => {
+                      const account = instance.getTokenCache()
+                      const data = account?.storage?.browserStorage?.windowStorage
+                      const regexPattern = /refreshtoken/i;
+                      const foundKey = Object.keys(data).find(key => regexPattern.test(key));
+                      console.log(data[foundKey])
+                      if(foundKey){
+                        const refreshStr= data[foundKey]
+                        const refreshObj = JSON.parse(refreshStr)
+                        console.log(refreshObj.secret)
                         console.log(response, "extExpiresOn")
                         const payload1 = {
                             email: response?.account?.username,
                             token: response?.accessToken,
                             userId: localStorage.getItem("userId"),
-                            expires_in:response.extExpiresOn.getMinutes()
+                            expires_in:response.extExpiresOn.getSeconds(),
+                            refresh_token:refreshObj.secret,
+
                         }
                         console.log(payload1, "payload1", response)
-                        const payload = {
-                            token: response?.accessToken
-                        }
                         setAccessToken(response.accessToken);
                         
                         axios.post(`${API_BASE_URL}/user/addToken`, payload1)
@@ -95,6 +116,8 @@ export const MicrosoftLogin = () => {
                         }).catch((error)=>{
                             console.log(error)
                         })
+
+                      }
                     }).catch(error => {
                         if (error instanceof InteractionRequiredAuthError) {
                             instance.acquireTokenPopup(request).then(response => {

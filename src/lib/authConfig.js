@@ -41,5 +41,5 @@ export const msalConfig = {
 export const loginRequest = {
     scopes: ["User.Read","SecurityEvents.ReadWrite.All",
         "SecurityEvents.Read.All", "Directory.Read.All", "Directory.ReadWrite.All",
-        "DirectoryRecommendations.Read.All", "DirectoryRecommendations.ReadWrite.All"]
+        "DirectoryRecommendations.Read.All", "DirectoryRecommendations.ReadWrite.All","offline_access"]
 };
