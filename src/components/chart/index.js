@@ -70,11 +70,17 @@ const ApexChart = () => {
             {
                 options: {
                   chart: {
-                    id: 'apexchart-example'
+                    id: 'apexchart-example',
+                    toolbar: {
+                        show: false
+                      },
+                      zoom: {
+                        enabled: false,
+                      }
                   },
                   dataLabels: {
                     enabled: false
-                  }
+                  },
                  
                 },
               

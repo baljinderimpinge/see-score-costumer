@@ -58,7 +58,7 @@ export default function Sidebar(props) {
                         <div className="col-12">
                             <ul>
                                 <li><Link to="/customer-dashboard"> <img src={Icon1} alt="" /><span>Dashboard</span></Link></li>
-                                <li><Link to="/security-health"> <img src={Icon2} alt="" /><span>View open findings</span></Link></li>
+                                <li><Link to="/security-health"> <img src={Icon2} alt="" /><span>Security health</span></Link></li>
                                 <li><Link to="/asset-landscape"> <img src={Icon3} alt="" /><span>Asset landscape</span></Link></li>
                                 <li><Link to="/insurance"> <img src={Icon4} alt="" /><span>Insurance</span></Link></li>
                                 <li><Link to="/help"> <img src={Icon5} alt="" /><span>Help</span></Link></li>
