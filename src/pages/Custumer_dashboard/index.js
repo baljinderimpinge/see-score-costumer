@@ -17,6 +17,7 @@ import styled from '@emotion/styled';
 import { ToastContainer } from 'react-toastify';
 import { ClipLoader } from "react-spinners";
 import { InteractionRequiredAuthError } from "@azure/msal-browser";
+import ApexChart from '../../components/chart';
 
 const FullPageLoader = styled.div`
   position: fixed;
@@ -142,7 +143,8 @@ useEffect(()=>{
                     <div className="bg-white border-radius-30 score last">
                       <div className="score-number text-start">
                         <h5>Identity score trend</h5>
-                        <img src={ChartImg} alt="" className="w-100" />
+                        {/* <img src={ChartImg} alt="" className="w-100" /> */}
+                        <ApexChart/>
                       </div>
                     </div>
                   </div>
@@ -164,7 +166,7 @@ useEffect(()=>{
         </main>
 
       </>
-        <footer></footer>
+       
     </>
   );
 };

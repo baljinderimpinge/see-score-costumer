@@ -34,146 +34,149 @@ const FullPageLoader = styled.div`
 `;
 
 export const MicrosoftLogin = () => {
-    const { instance, inProgress, accounts } = useMsal();
-    const navigate = useNavigate();
+  const { instance, inProgress, accounts } = useMsal();
+  const navigate = useNavigate();
 
-    const allSessionStorageItems = { ...sessionStorage };
-    const [accessToken, setAccessToken] = useState()
-    const [accessTokenStatus, setAccessTokenStatus] = useState(false)
-    const [userRiskPolicy, setUserRiskPolicy] = useState()
-    const [findingCount, setFindingCount] = useState()
-    const [tokenHandle, setTokenHandle] = useState(false)
-    // Log or use the items
-    // console.log(allSessionStorageItems,"allSessionStorageItems");
-    //   const { loginWithRedirect, user, isAuthenticated, getIdTokenClaims } = useAuth0();
-    // console.log(isAuthenticated,user)
-    const styles = {
-        background: `url(${IdImg})`,
-        backgroundRepeat: 'no-repeat',
-        backgroundPosition: 'bottom',
-    };
-
-
-    
+  const allSessionStorageItems = { ...sessionStorage };
+  const [accessToken, setAccessToken] = useState()
+  const [accessTokenStatus, setAccessTokenStatus] = useState(false)
+  const [userRiskPolicy, setUserRiskPolicy] = useState()
+  const [findingCount, setFindingCount] = useState()
+  const [tokenHandle, setTokenHandle] = useState(false)
+  // Log or use the items
+  // console.log(allSessionStorageItems,"allSessionStorageItems");
+  //   const { loginWithRedirect, user, isAuthenticated, getIdTokenClaims } = useAuth0();
+  // console.log(isAuthenticated,user)
+  const styles = {
+    background: `url(${IdImg})`,
+    backgroundRepeat: 'no-repeat',
+    backgroundPosition: 'bottom',
+  };
 
 
-// const regexPattern = /refreshtoken/i;
-// const isRefreshTokenPresent = regexPattern.test();
 
-// const foundKey = Object.keys(data).find(key => regexPattern.test(key));
-// console.log(data[foundKey])
-// if(foundKey){
-//   const refreshStr= data[foundKey]
-//   const refreshObj = JSON.parse(refreshStr)
-//   console.log(refreshObj.secret)
-const account = instance.getAllAccounts()
 
-// }
-// console.log(foundKey,"foundKey")
-//  if(account.length>=1){
-    useEffect(()=>{
+
+  // const regexPattern = /refreshtoken/i;
+  // const isRefreshTokenPresent = regexPattern.test();
+
+  // const foundKey = Object.keys(data).find(key => regexPattern.test(key));
+  // console.log(data[foundKey])
+  // if(foundKey){
+  //   const refreshStr= data[foundKey]
+  //   const refreshObj = JSON.parse(refreshStr)
+  //   console.log(refreshObj.secret)
+  const account = instance.getAllAccounts()
+
+  // }
+  // console.log(foundKey,"foundKey")
+  //  if(account.length>=1){
+  useEffect(() => {
     const fetchData = async () => {
-        try {
-            const account = instance.getAllAccounts()
-            // instance.setActiveAccount(account[0].username);
+      try {
+        const account = instance.getAllAccounts()
+        // instance.setActiveAccount(account[0].username);
 
-            // const data = await handleResponse()
-         
+        // const data = await handleResponse()
 
-                if (accounts.length > 0) {
-                    instance.setActiveAccount(account[0].username);
-                    const request = {
-                        scopes: loginRequest.scopes,
-                        account: accounts[0]
-                    };
-                    instance.acquireTokenSilent(request).then(response => {
-                      const account = instance.getTokenCache()
-                      const data = account?.storage?.browserStorage?.windowStorage
-                      const regexPattern = /refreshtoken/i;
-                      const foundKey = Object.keys(data).find(key => regexPattern.test(key));
-                      console.log(data[foundKey])
-                      if(foundKey){
-                        const refreshStr= data[foundKey]
-                        const refreshObj = JSON.parse(refreshStr)
-                        console.log(refreshObj.secret)
-                        console.log(response, "extExpiresOn")
-                        const payload1 = {
-                            email: response?.account?.username,
-                            token: response?.accessToken,
-                            userId: localStorage.getItem("userId"),
-                            expires_in:response.extExpiresOn.getSeconds(),
-                            refresh_token:refreshObj.secret,
 
-                        }
-                        console.log(payload1, "payload1", response)
-                        setAccessToken(response.accessToken);
-                        
-                        axios.post(`${API_BASE_URL}/user/addToken`, payload1)
-                        .then((response)=>{
-                            console.log(response.data.data,"lllllllllllllll")
-                            localStorage.setItem("azureToken",response?.data?.data?.token)
-                            navigate('/customer-dashboard');
-                        }).catch((error)=>{
-                            console.log(error)
-                        })
+        if (accounts.length > 0) {
+          instance.setActiveAccount(account[0].username);
+          const request = {
+            scopes: loginRequest.scopes,
+            account: accounts[0]
+          };
+          instance.acquireTokenSilent(request).then(response => {
+            const account = instance.getTokenCache()
+            const data = account?.storage?.browserStorage?.windowStorage
+            const regexPattern = /refreshtoken/i;
+            const foundKey = Object.keys(data).find(key => regexPattern.test(key));
+            console.log(data[foundKey])
+            if (foundKey) {
+              const refreshStr = data[foundKey]
+              const refreshObj = JSON.parse(refreshStr)
+              console.log(refreshObj.secret)
+              console.log(response, "extExpiresOn")
+              const payload1 = {
+                email: response?.account?.username,
+                token: response?.accessToken,
+                userId: localStorage.getItem("userId"),
+                expires_in: response.extExpiresOn.getSeconds(),
+                refresh_token: refreshObj.secret,
 
-                      }
-                    }).catch(error => {
-                        if (error instanceof InteractionRequiredAuthError) {
-                            instance.acquireTokenPopup(request).then(response => {
-                                // setAccessToken(response.accessToken);
+              }
+              console.log(payload1, "payload1", response)
+              setAccessToken(response.accessToken);
 
-                            });
-                        }
-                    });
-                } else {
-                    console.log("no accout foud")
-                }
-            
-        } catch (error) {
-            setTokenHandle(true)
-            console.error('Token acquisition error:', error);
+              axios.post(`${API_BASE_URL}/user/addToken`, payload1)
+
+                .then((response) => {
+                  console.log(payload1.email,"emial  lllllllllllllll")
+                  localStorage.setItem("email",payload1.email)
+
+                  localStorage.setItem("azureToken", response?.data?.data?.token)
+                  navigate('/customer-dashboard');
+                }).catch((error) => {
+                  console.log(error)
+                })
+
+            }
+          }).catch(error => {
+            if (error instanceof InteractionRequiredAuthError) {
+              instance.acquireTokenPopup(request).then(response => {
+                // setAccessToken(response.accessToken);
+
+              });
+            }
+          });
+        } else {
+          console.log("no accout foud")
         }
+
+      } catch (error) {
+        setTokenHandle(true)
+        console.error('Token acquisition error:', error);
+      }
     };
 
     fetchData();
- },[account,instance])
-   
-
-   
+  }, [account, instance])
 
 
-    const handleRedirect = () => {
-        try {
-            instance.loginRedirect(loginRequest);
-        } catch (error) {
-            console.error("Error during login redirect:", error);
-        }
-    };
 
-    return (
-        <>
-            <Sidebar />
-            <main>
-                <Header />
-                <div className="content-page">
-                    <Section />
-                    <section>
-                        <h2>Get started</h2>
-                        <p className="fw-semibold">Select your identity provider below to get started</p>
-                        <div className="row mt-4 gy-4">
-                            <div className="col-md-4">
-                                <div className="bg-white p-5 border-radius-15 text-center">
-                                    <figure><img onClick={handleRedirect} src={images} alt="" /></figure>
-                                    <h5 onClick={handleRedirect} >Microsoft Azure</h5>
-                                </div>
-                            </div>
-                        </div>
-                    </section>
+
+
+  const handleRedirect = () => {
+    try {
+      instance.loginRedirect(loginRequest);
+    } catch (error) {
+      console.error("Error during login redirect:", error);
+    }
+  };
+
+  return (
+    <>
+      <Sidebar />
+      <main>
+        <Header />
+        <div className="content-page">
+          <Section />
+          <section>
+            <h2>Get started</h2>
+            <p className="fw-semibold">Select your identity provider below to get started</p>
+            <div className="row mt-4 gy-4">
+              <div className="col-md-4">
+                <div className="bg-white p-5 border-radius-15 text-center">
+                  <figure><img onClick={handleRedirect} src={images} alt="" /></figure>
+                  <h5 onClick={handleRedirect} >Microsoft Azure</h5>
                 </div>
-            </main>
+              </div>
+            </div>
+          </section>
+        </div>
+      </main>
 
-            {/* <AuthenticatedTemplate>  <>
+      {/* <AuthenticatedTemplate>  <>
         <Sidebar />
 
         <main>
@@ -238,8 +241,8 @@ const account = instance.getAllAccounts()
         <footer></footer>
 
       </AuthenticatedTemplate> */}
-        </>
-    );
+    </>
+  );
 };
 
 export default MicrosoftLogin;

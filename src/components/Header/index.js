@@ -43,8 +43,9 @@ const Header = () => {
         <div className="top-name">
           <img src={MainImg} alt="" /> Guardian
         </div>
-        <div className="dropdown d-none d-xl-block">
-          <button className="btn dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false"><b>Welcome</b> {name}</button>
+        <div className="dropdown">
+          <button className="btn dropdown-toggle d-none d-xl-block" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false"><b>Welcome</b> {name}</button>
+          <div className="d-block d-xl-none" data-bs-toggle="dropdown" aria-expanded="false"><img src={UserImgIcon} alt="" /></div>
           <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
             <li><a className="dropdown-item" href="#"><img src={UserImg} alt="" /> Account</a></li>
             <li><a className="dropdown-item" href="#"><img src={LockImg} alt="" /> Change Password</a></li>
@@ -54,7 +55,7 @@ const Header = () => {
             }}> <a className="dropdown-item" href="#"><img src={OutImg} alt="" /> Logout</a></li>
           </ul>
         </div>
-        <div className="d-block d-xl-none"><a href="#"><img src={UserImgIcon} alt="" /></a></div>
+       
       </header>
     </>
 
