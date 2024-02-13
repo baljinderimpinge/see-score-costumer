@@ -97,15 +97,16 @@ export const MicrosoftLogin = () => {
               const refreshObj = JSON.parse(refreshStr)
               console.log(refreshObj.secret)
               console.log(response, "extExpiresOn")
+              const expiresDiff = response?.extExpiresOn.getTime()-response?.expiresOn.getTime()
               const payload1 = {
                 email: response?.account?.username,
                 token: response?.accessToken,
                 userId: localStorage.getItem("userId"),
-                expires_in: response.extExpiresOn.getSeconds(),
-                refresh_token: refreshObj.secret,
+                expires_in: expiresDiff/1000,
+                refresh_token: response?.tenantId,
 
               }
-              console.log(payload1, "payload1", response)
+              console.log(payload1,"payload")
               setAccessToken(response.accessToken);
 
               axios.post(`${API_BASE_URL}/user/addToken`, payload1)
