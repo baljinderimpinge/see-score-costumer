@@ -32,22 +32,28 @@ export const LoderPage = () => {
     const [loder, setLoder] = useState(true);
 
     useEffect(() => {
+        console.log("check call",isAuthenticated)
         const fetchAndLogTokens = async () => {
-            if (!isAuthenticated) {
-                console.log("User is not authenticated");
-                return;
-            }
+            // if (!isAuthenticated) {
+            //     console.log("User is not authenticated");
+            //     return;
+            // }
             console.log(isAuthenticated, "isAuthenticated");
             try {
-                const idToken = await getIdTokenClaims();
-                if (idToken.__raw) {
+                let localToken = localStorage.getItem("token")
+                if(!localToken){
+                    const idToken = await getIdTokenClaims();
+                    localToken=idToken.__raw
+                }
+                if (localToken) {
                     let payload = {
-                        token: idToken.__raw,
+                        token: localToken,
                     };
                     const result = await axios.post(
                         `${API_BASE_URL}/user/login`,
                         payload
                     );
+                    console.log(result,"result")
                     console.log(
                         result.data.data.app_metadata.role,
                         "jjjjjjjjjjjjj"
@@ -56,7 +62,7 @@ export const LoderPage = () => {
                         toast.success("Login successfully!", {
                             position: toast.POSITION.TOP_RIGHT,
                         });
-                        localStorage.setItem("token", idToken.__raw);
+                        localStorage.setItem("token", localToken);
                         localStorage.setItem(
                             "username",
                             result?.data?.data?.app_metadata?.name
@@ -70,7 +76,7 @@ export const LoderPage = () => {
                         toast.success("Login successfully!", {
                             position: toast.POSITION.TOP_RIGHT,
                         });
-                        localStorage.setItem("token", idToken.__raw);
+                        localStorage.setItem("token", localToken);
                         localStorage.setItem(
                             "username",
                             result?.data?.data?.app_metadata?.name
@@ -85,25 +91,26 @@ export const LoderPage = () => {
                             result.data.data.user_id
                         );
 
-                        if (localStorage.getItem("azureToken")) {
-                            navigate("/customer-dashboard");
-                        } else {
-                            navigate("/microsoft-login");
-                        }
-
-                        // const data = await axios.get(
-                        //     `${API_BASE_URL}/user/get-azure-token/${result.data.data.user_id}`
-                        // );
-                        // if (data.data.status === 200) {
-                        //     localStorage.setItem(
-                        //         "azureToken",
-                        //         data.data.data.token
-                        //     );
-                        //     localStorage.setItem("email", data.data.data.email);
+                        // if (localStorage.getItem("azureToken")) {
                         //     navigate("/customer-dashboard");
                         // } else {
                         //     navigate("/microsoft-login");
                         // }
+
+                        const data = await axios.get(
+                            `${API_BASE_URL}/user/get-azure-token/${result.data.data.user_id}`
+                        );
+                        console.log(data,"data")
+                        if (data.data.status === 200) {
+                            localStorage.setItem(
+                                "azureToken",
+                                data.data.data.token
+                            );
+                            localStorage.setItem("email", data.data.data.email);
+                            navigate("/customer-dashboard");
+                        } else {
+                            navigate("/microsoft-login");
+                        }
                     }
                 }
             } catch (error) {
