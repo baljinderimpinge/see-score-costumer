@@ -1,19 +1,19 @@
-import { AuthenticatedTemplate, UnauthenticatedTemplate, useMsal } from "@azure/msal-react";
+// import { AuthenticatedTemplate, UnauthenticatedTemplate, useMsal } from "@azure/msal-react";
 import { loginRequest } from '../../lib/authConfig';
 
-import { useEffect } from "react";
+// import { useEffect } from "react";
 
 
 const MicrosoftLogin1 = () => {
 
-  const { instance } = useMsal();
+  // const { instance } = useMsal();
 
-  useEffect(() => {
-    const currentAccount = instance.getActiveAccount()
-    if (currentAccount) {
-    }
+  // useEffect(() => {
+  //   const currentAccount = instance.getActiveAccount()
+  //   if (currentAccount) {
+  //   }
 
-  }, [instance])
+  // }, [instance])
   const handleRedirect = () => {
     try {
       instance.loginRedirect(loginRequest);
@@ -23,7 +23,7 @@ const MicrosoftLogin1 = () => {
   };
   return (
     <>
-      <AuthenticatedTemplate>
+      {/* <AuthenticatedTemplate> */}
         <section className="ptb-110">
           <div className="container">
             <h1>Welcome to Guardian</h1>
@@ -54,12 +54,12 @@ const MicrosoftLogin1 = () => {
 
           </div>
         </section>
-      </AuthenticatedTemplate>
+      {/* </AuthenticatedTemplate>
       <UnauthenticatedTemplate>
         <button onClick={handleRedirect}>
           Sign In
         </button>
-      </UnauthenticatedTemplate>
+      </UnauthenticatedTemplate> */}
 
     </>
 

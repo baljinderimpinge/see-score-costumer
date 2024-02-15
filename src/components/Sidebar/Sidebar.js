@@ -4,25 +4,25 @@ import Icon2 from "../../assets/images/new/icon2.svg"
 import Icon3 from "../../assets/images/new/icon3.svg"
 import Icon4 from "../../assets/images/new/icon4.svg"
 import Icon5 from "../../assets/images/new/icon5.svg"
-import Icon6 from "../../assets/images/new/icon6.svg"
+// import Icon6 from "../../assets/images/new/icon6.svg"
 import { Link } from 'react-router-dom';
-import { useMsal } from '@azure/msal-react';
-import { loginRequest } from '../../lib/authConfig';
+// import { useMsal } from '@azure/msal-react';
+// import { loginRequest } from '../../lib/authConfig';
 import { useNavigate } from 'react-router-dom';
 
 export default function Sidebar(props) {
-    const { instance, inProgress, accounts } = useMsal();
+    // const { instance, inProgress, accounts } = useMsal();
     const navigate = useNavigate();
 
-        const azureLogout = () => {
-            try {
-                instance.logoutRedirect(loginRequest);
-                localStorage.clear()
-                navigate('/microsoft-login');
-            } catch (error) {
-                console.error("Error during login redirect:", error);
-            }
-        };
+        // const azureLogout = () => {
+        //     try {
+        //         instance.logoutRedirect(loginRequest);
+        //         localStorage.clear()
+        //         navigate('/microsoft-login');
+        //     } catch (error) {
+        //         console.error("Error during login redirect:", error);
+        //     }
+        // };
 
     
     return (
@@ -62,7 +62,7 @@ export default function Sidebar(props) {
                                 <li><Link to="/asset-landscape"> <img src={Icon3} alt="" /><span>Asset landscape</span></Link></li>
                                 <li><Link to="/insurance"> <img src={Icon4} alt="" /><span>Insurance</span></Link></li>
                                 <li><Link to="/help"> <img src={Icon5} alt="" /><span>Help</span></Link></li>
-                                <li onClick={()=> azureLogout()} ><Link><img src={Icon6} alt="" /><span>Logout</span></Link></li>
+                                {/* <li onClick={()=> azureLogout()} ><Link><img src={Icon6} alt="" /><span>Logout</span></Link></li> */}
                             </ul>
                         </div>
                     </div> 

@@ -1,6 +1,6 @@
 import React from "react";
 import { Navigate, Outlet } from "react-router-dom";
-import { useIsAuthenticated } from "@azure/msal-react";
+// import { useIsAuthenticated } from "@azure/msal-react";
 
 export const AuthenticatedRoute = () => {
     const token = localStorage.getItem("token");
@@ -14,6 +14,7 @@ export const AuthenticatedAdminRoute = () => {
 };
 
 export const MicrosoftAuthenticatedRoute = () => {
-    const isAuthenticated = useIsAuthenticated();
-    return isAuthenticated ? <Outlet /> : <Navigate to="/customer-dashboard" />;
+    return
+    // const isAuthenticated = useIsAuthenticated();
+    // return isAuthenticated ? <Outlet /> : <Navigate to="/customer-dashboard" />;
 };
