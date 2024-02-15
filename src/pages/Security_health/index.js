@@ -33,7 +33,6 @@ const SecurityHealth = () => {
     const [securityData, setSecurityData] = useState();
     const [loder, setLoder] = useState(false);
     useEffect(() => {
-        console.log("hello");
         const fetchData = async () => {
             try {
                 const email = localStorage.getItem("email");
@@ -50,8 +49,6 @@ const SecurityHealth = () => {
                     `${API_BASE_URL}/user/getsecurity`,
                     payload
                 );
-                console.log(response.data.data);
-                console.log(response1.data.data);
                 setRecomendationData(response.data.data);
                 setSecurityData(response1.data.data);
                 setLoder(true);
@@ -62,11 +59,6 @@ const SecurityHealth = () => {
         };
 
         fetchData();
-
-        // Clean-up function can be optionally defined if needed
-        // return () => {
-        //   clean-up code here
-        // };
     }, []);
 
     const show = (itemId) => {
@@ -83,10 +75,6 @@ const SecurityHealth = () => {
             securityChecklistId: securityid,
             status: 2,
         };
-        const securityresult = await axios.put(
-            `${API_BASE_URL}/user/updatesecurity`,
-            secPayload
-        );
 
         const payload = {
             email: email,

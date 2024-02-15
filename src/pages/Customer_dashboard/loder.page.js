@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useNavigate } from "react-router-dom";
-import images from "../../assets/images/auth-logo.png";
 import axios from "axios";
 import { API_BASE_URL } from "../../lib/constant";
 import styled from "@emotion/styled";
@@ -32,13 +31,7 @@ export const LoderPage = () => {
     const [loder, setLoder] = useState(true);
 
     useEffect(() => {
-        console.log("check call",isAuthenticated)
         const fetchAndLogTokens = async () => {
-            // if (!isAuthenticated) {
-            //     console.log("User is not authenticated");
-            //     return;
-            // }
-            console.log(isAuthenticated, "isAuthenticated");
             try {
                 let localToken = localStorage.getItem("token")
                 if(!localToken){
@@ -53,12 +46,7 @@ export const LoderPage = () => {
                         `${API_BASE_URL}/user/login`,
                         payload
                     );
-                    console.log(result,"result")
-                    console.log(
-                        result.data.data.app_metadata.role,
-                        "jjjjjjjjjjjjj"
-                    );
-                    if (result?.data?.data?.app_metadata?.role === "Admin") {
+                    if (result?.data?.data?.role === "Admin") {
                         toast.success("Login successfully!", {
                             position: toast.POSITION.TOP_RIGHT,
                         });
@@ -69,7 +57,7 @@ export const LoderPage = () => {
                         );
                         localStorage.setItem(
                             "role",
-                            result?.data?.data?.app_metadata?.role
+                            result?.data?.data?.role
                         );
                         navigate("/admin-dashboard");
                     } else {
@@ -83,24 +71,17 @@ export const LoderPage = () => {
                         );
                         localStorage.setItem(
                             "companyName",
-                            result.data.data.app_metadata.bussinessName
+                            result.data?.data?.app_metadata?.bussinessName
                         );
-                        console.log(result.data.data.user_id);
                         localStorage.setItem(
                             "userId",
                             result.data.data.user_id
                         );
 
-                        // if (localStorage.getItem("azureToken")) {
-                        //     navigate("/customer-dashboard");
-                        // } else {
-                        //     navigate("/microsoft-login");
-                        // }
-
                         const data = await axios.get(
                             `${API_BASE_URL}/user/get-azure-token/${result.data.data.user_id}`
                         );
-                        console.log(data,"data")
+
                         if (data.data.status === 200) {
                             localStorage.setItem(
                                 "azureToken",

@@ -11,10 +11,8 @@ if (!msalInstance.getActiveAccount() && msalInstance.getAllAccounts().length > 0
 msalInstance.addEventCallback((event) => {
     switch (event.eventType) {
         case EventType.LOGIN_SUCCESS:
-            console.log('Logged in account:', event.payload.account);
             break;
         case EventType.LOGIN_FAILURE:
-            console.log('Login failed:', event.error);
             break;
         default:
             break;

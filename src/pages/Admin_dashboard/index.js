@@ -1,26 +1,16 @@
 import React from "react";
 import Axios from 'axios';
 import Sidebar from "../../components/Sidebar/Sidebar";
-// import "./login";
 import { useState, useEffect } from "react";
-// import './login.css';
-import { useNavigate } from "react-router-dom";
-import Images from "../../assets/images/chain.svg"
-import RiskImage from '../../assets/images/riska-logo.svg';
 import userImage from '../../assets/images/user.svg';
 import { API_BASE_URL } from '../../lib/constant';
 import lockImage from '../../assets/images/lock.svg';
-import outImage from '../../assets/images/out.svg';
+import outImage from '../../assets/images/out.svg';   
 import { useAuth0 } from "@auth0/auth0-react";
 import HeadImg from "../../assets/images/new/guardian.svg";
 
 function AdminDashBoard() {
-  const navigate = useNavigate();
-  const { logout, isAuthenticated, user } = useAuth0();
-
-  const handleCustomersClick = () => {
-    navigate("/user");
-  };
+  const { logout, user } = useAuth0();
 
 
   const [businessName, setBusinessName] = useState('');
@@ -86,12 +76,6 @@ function AdminDashBoard() {
         </header>
         <div className="content-page">
           <section>
-            {/* <h1>Welcome to Guardian <br /> Admin Portal</h1>
-            <div className="addition">
-              <a href="#">Onboarding</a>
-              <a href="#" onClick={handleCustomersClick}>Customers</a>
-              <a href="#">Alerts</a>
-            </div> */}
             <h2 className="mt-5">Customer onboarding</h2>
             <div className="bg-white border-radius-15 information">
               <h5 className="text-primary">Company information</h5>

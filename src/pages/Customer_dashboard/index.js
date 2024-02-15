@@ -1,27 +1,19 @@
 import React, { useEffect, useState } from "react";
 import Header from "../../components/Header";
-import { Link, useParams } from "react-router-dom";
-import images from "../../assets/images/logo1.svg";
+import { Link } from "react-router-dom";
 import axios from "axios";
 import { API_BASE_URL } from "../../lib/constant";
-import {
-    AuthenticatedTemplate,
-    UnauthenticatedTemplate,
-    useMsal,
-    MsalProvider,
-} from "@azure/msal-react";
-import { loginRequest } from "../Login/msalSetup";
+
 import Section from "../../components/Section";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import SubImg from "../../assets/images/new/subtract.svg";
 import IdImg from "../../assets/images/new/identity-shape.svg";
-import ChartImg from "../../assets/images/new/chart.jpg";
-// import { CacheLookupPolicy } from '@azure/msal-browser';
-import { useAuth0 } from "@auth0/auth0-react";
+
+
 import styled from "@emotion/styled";
 import { ToastContainer } from "react-toastify";
 import { ClipLoader } from "react-spinners";
-import { InteractionRequiredAuthError } from "@azure/msal-browser";
+
 import ApexChart from "../../components/chart";
 
 const FullPageLoader = styled.div`
@@ -43,10 +35,7 @@ const FullPageLoader = styled.div`
 `;
 
 export const CustomerDashboard = () => {
-    const { instance, inProgress, accounts } = useMsal();
 
-    const allSessionStorageItems = { ...sessionStorage };
-    const [accessToken, setAccessToken] = useState();
     const [accessTokenStatus, setAccessTokenStatus] = useState(false);
     const [userRiskPolicy, setUserRiskPolicy] = useState();
     const [findingCount, setFindingCount] = useState();
@@ -55,19 +44,14 @@ export const CustomerDashboard = () => {
     );
     const [loder, setLoder] = useState(false);
     const [lastUpdate, setLastUpdate] = useState();
-    // Log or use the items
-    // console.log(allSessionStorageItems,"allSessionStorageItems");
-    //   const { loginWithRedirect, user, isAuthenticated, getIdTokenClaims } = useAuth0();
-    // console.log(isAuthenticated,user)
+    
     const styles = {
         background: `url(${IdImg})`,
         backgroundRepeat: "no-repeat",
         backgroundPosition: "bottom",
     };
 
-    // const account = instance.getAllAccounts()
-    // console.log(account, "kkkkkkkkk", inProgress, "llllllllll", instance, "accountaccount")
-
+ 
     useEffect(() => {
         getScoreData();
     }, [azureToken]);
@@ -77,33 +61,22 @@ export const CustomerDashboard = () => {
             token: azureToken,
         };
         try {
-            console.log(payload, "payload");
+
             const data = await axios.post(
                 `${API_BASE_URL}/user/getScoreData`,
                 payload
             );
-            console.log(data.data, "llllllllllllllll");
             setUserRiskPolicy(data?.data?.data[0]);
             setFindingCount(data?.data?.findingCount);
             setLoder(true);
             setAccessTokenStatus(true);
         } catch (error) {
-            console.log(error.response.data.status, "error");
 
             if (error.response.data.status === 401) {
-                // getScoreData()
 
                 setLoder(true);
                 setAccessTokenStatus(false);
             }
-        }
-    };
-
-    const handleRedirect = () => {
-        try {
-            instance.loginRedirect(loginRequest);
-        } catch (error) {
-            console.error("Error during login redirect:", error);
         }
     };
 
@@ -197,8 +170,7 @@ export const CustomerDashboard = () => {
                                                             <h5>
                                                                 Identity score
                                                                 trend
-                                                            </h5>
-                                                            {/* <img src={ChartImg} alt="" className="w-100" /> */}
+                                                            </h5> 
                                                             <ApexChart
                                                                 getLastUpdate={
                                                                     getLastUpdate

@@ -1,5 +1,5 @@
 import { LogLevel } from "@azure/msal-browser";
-import { AUTHORITY, MICROSOFT_CLIENT_ID, REDIRECT_URL } from "./constant";
+import { MICROSOFT_CLIENT_ID, REDIRECT_URL } from "./constant";
 export const msalConfig = {
     auth: {
         clientId: MICROSOFT_CLIENT_ID,
@@ -13,22 +13,18 @@ export const msalConfig = {
     },
     system: {
         loggerOptions: {
-            loggerCallback: (level, message, containsPii) => {
+            loggerCallback: (level, containsPii) => {
                 if (containsPii) {
                     return;
                 }
                 switch (level) {
                     case LogLevel.Error:
-                        console.error(message);
                         return;
                     case LogLevel.Info:
-                        console.info(message);
                         return;
                     case LogLevel.Verbose:
-                        console.debug(message);
                         return;
                     case LogLevel.Warning:
-                        console.warn(message);
                         return;
                     default:
                         return;

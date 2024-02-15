@@ -1,7 +1,6 @@
-import { AuthenticatedTemplate, UnauthenticatedTemplate, useMsal, MsalProvider } from "@azure/msal-react";
-import { loginRequest, msalConfig } from '../../lib/authConfig';
-import { EventType, PublicClientApplication } from "@azure/msal-browser";
-import { msalInstance } from './msalSetup';
+import { AuthenticatedTemplate, UnauthenticatedTemplate, useMsal } from "@azure/msal-react";
+import { loginRequest } from '../../lib/authConfig';
+
 import { useEffect } from "react";
 
 
@@ -12,7 +11,6 @@ const MicrosoftLogin1 = () => {
   useEffect(() => {
     const currentAccount = instance.getActiveAccount()
     if (currentAccount) {
-      console.log(currentAccount.name, "kkkkkkkkkkkkkkkkkk")
     }
 
   }, [instance])

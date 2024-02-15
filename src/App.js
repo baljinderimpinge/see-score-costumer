@@ -1,11 +1,9 @@
-import React, { useEffect } from "react";
+import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./Style.css";
-// import './pages//style.css'
 import LoginButton from "./components/Button/LoginButton";
-import LogoutButton from "./components/Button/LogoutButton";
 import CustomerDashboard from "./pages/Customer_dashboard";
 import AdminDashBoard from "./pages/Admin_dashboard";
 import { ViewCustomer } from "./pages/Admin_dashboard/view_customer";
@@ -13,22 +11,14 @@ import { ViewCustomer } from "./pages/Admin_dashboard/view_customer";
 import {
     AuthenticatedAdminRoute,
     AuthenticatedRoute,
-    MicrosoftAuthenticatedRoute,
-} from "./HOC/priveteRoures"; // Correct the import path
+} from "./HOC/priveteRoures";
 import Insurance from "./pages/Insurance";
 import MicrosoftLoing from "./pages/Customer_dashboard/azrueLogin";
-import { AuthenticatedTemple, EventType } from "@azure/msal-browser";
 import { MsalProvider } from "@azure/msal-react";
 import SecurityHealth from "./pages/Security_health";
 import Assetlandscape from "./pages/Asset_landscape";
-import Sidebar from "./components/CompanyName/CompanyName";
 import Logout from "./pages/Logout/Index";
 import Help from "./pages/Help";
-import {
-    AuthenticatedTemplate,
-    UnauthenticatedTemplate,
-    useMsal,
-} from "@azure/msal-react";
 import { LoderPage } from "./pages/Customer_dashboard/loder.page";
 
 function App({ maslInstance }) {

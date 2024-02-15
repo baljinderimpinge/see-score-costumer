@@ -1,15 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import Sidebar from '../../components/Sidebar/Sidebar';
-import Images from "../../assets/images/chain.svg"
-import RiskImage from '../../assets/images/riska-logo.svg';
 import userImage from '../../assets/images/user.svg';
 import { API_BASE_URL } from '../../lib/constant';
 import lockImage from '../../assets/images/lock.svg';
 import outImage from '../../assets/images/out.svg';
 import { useAuth0 } from "@auth0/auth0-react";
-import HeadImg from "../../assets/images/new/guardian.svg"
-import IconImg from "../../assets/images/new/identity-icon.svg"
-import IconImg1 from "../../assets/images/new/bag-suite.svg"
+import HeadImg from "../../assets/images/new/guardian.svg" 
 import axios from "axios";
 export const ViewCustomer  = () => {
     const { logout, isAuthenticated, user } = useAuth0();
@@ -20,7 +16,6 @@ export const ViewCustomer  = () => {
         const fetchData = async () => {
             try {
                 const response = await axios.get(`${API_BASE_URL}/admin/getallcustomers`);
-                console.log(response.data.data);
                 setViewCustomerData(response.data.data)
             } catch (error) {
                 console.error('Error fetching data:', error);
