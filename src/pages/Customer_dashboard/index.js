@@ -15,6 +15,7 @@ import { ToastContainer } from "react-toastify";
 import { ClipLoader } from "react-spinners";
 
 import ApexChart from "../../components/chart";
+import { getAzureToken } from "../../HOC/getToken";
 
 const FullPageLoader = styled.div`
     position: fixed;
@@ -39,9 +40,9 @@ export const CustomerDashboard = () => {
     const [accessTokenStatus, setAccessTokenStatus] = useState(false);
     const [userRiskPolicy, setUserRiskPolicy] = useState();
     const [findingCount, setFindingCount] = useState();
-    const [azureToken, setAzureToken] = useState(
-        localStorage.getItem("azureToken")
-    );
+    // const [azureToken, setAzureToken] = useState(
+       
+    // );
     const [loder, setLoder] = useState(false);
     const [lastUpdate, setLastUpdate] = useState();
     
@@ -54,14 +55,17 @@ export const CustomerDashboard = () => {
  
     useEffect(() => {
         getScoreData();
-    }, [azureToken]);
+    }, []);
 
     const getScoreData = async () => {
-        const payload = {
-            token: azureToken,
-        };
+     
         try {
-
+            await getAzureToken()
+            const azureToken=  localStorage.getItem("azureToken")
+            console.log(azureToken,"azureToken")
+            const payload = {
+                token: azureToken,
+            };
             const data = await axios.post(
                 `${API_BASE_URL}/user/getScoreData`,
                 payload
@@ -71,9 +75,8 @@ export const CustomerDashboard = () => {
             setLoder(true);
             setAccessTokenStatus(true);
         } catch (error) {
-
             if (error.response.data.status === 401) {
-
+            
                 setLoder(true);
                 setAccessTokenStatus(false);
             }

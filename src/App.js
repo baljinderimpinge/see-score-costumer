@@ -26,33 +26,6 @@ import { API_BASE_URL } from "./lib/constant";
 
 
 function App() {
-    const navigate = useNavigate();
-
-    const userId = localStorage.getItem("userId")
-
-    var getAzureToken = async () => {
-        const data = await axios.get(
-            `${API_BASE_URL}/user/get-azure-token/${userId}`
-        );
-        if (data.data.status === 200) {
-            localStorage.setItem(
-                "azureToken",
-                data.data.data.token
-            );
-            localStorage.setItem("email", data.data.data.email);
-            navigate("/customer-dashboard");
-        } else {
-            navigate("/microsoft-login");
-        }
-
-    }
-    useEffect(() => {
-        if (localStorage.getItem("userId")) {
-            getAzureToken()
-        }
-    }, [])
-
-
     return (
         <React.Fragment>
             <Routes>

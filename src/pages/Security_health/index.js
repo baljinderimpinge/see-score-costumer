@@ -10,6 +10,7 @@ import { API_BASE_URL } from "../../lib/constant";
 import { ToastContainer } from "react-toastify";
 import { ClipLoader } from "react-spinners";
 import styled from "@emotion/styled";
+import { getAzureToken } from "../../HOC/getToken";
 const FullPageLoader = styled.div`
     position: fixed;
     top: 0;
@@ -35,6 +36,7 @@ const SecurityHealth = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
+                await getAzureToken()
                 const email = localStorage.getItem("email");
                 const payload = {
                     email: email,

@@ -1,9 +1,12 @@
 import React from "react";
 import { Navigate, Outlet } from "react-router-dom";
+import { API_BASE_URL } from "../lib/constant";
+import axios from "axios";
 // import { useIsAuthenticated } from "@azure/msal-react";
 
 export const AuthenticatedRoute = () => {
     const token = localStorage.getItem("token");
+
     return token ? <Outlet /> : <Navigate to="/" />;
 };
 
