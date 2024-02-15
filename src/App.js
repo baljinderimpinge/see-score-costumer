@@ -1,7 +1,7 @@
 import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
-import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
+import { Routes, Route, useNavigate } from "react-router-dom";
 import "./Style.css";
 import LoginButton from "./components/Button/LoginButton";
 import CustomerDashboard from "./pages/Customer_dashboard";
@@ -14,7 +14,6 @@ import {
 } from "./HOC/priveteRoures";
 import Insurance from "./pages/Insurance";
 import MicrosoftLoing from "./pages/Customer_dashboard/azrueLogin";
-// import { MsalProvider } from "@azure/msal-react"; 
 import SecurityHealth from "./pages/Security_health";
 import Assetlandscape from "./pages/Asset_landscape";
 import Logout from "./pages/Logout/Index";
@@ -98,7 +97,6 @@ function App() {
                     />
                 </Route>
             </Routes>
-            {/* </MsalProvider> */}
         </React.Fragment>
     );
 }

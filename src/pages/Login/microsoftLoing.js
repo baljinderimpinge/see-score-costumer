@@ -1,26 +1,10 @@
-// import { AuthenticatedTemplate, UnauthenticatedTemplate, useMsal } from "@azure/msal-react";
-import { loginRequest } from '../../lib/authConfig';
 
-// import { useEffect } from "react";
 
 
 const MicrosoftLogin1 = () => {
 
-  // const { instance } = useMsal();
+  
 
-  // useEffect(() => {
-  //   const currentAccount = instance.getActiveAccount()
-  //   if (currentAccount) {
-  //   }
-
-  // }, [instance])
-  const handleRedirect = () => {
-    try {
-      instance.loginRedirect(loginRequest);
-    } catch (error) {
-      console.error("Error during login redirect:", error);
-    }
-  };
   return (
     <>
       {/* <AuthenticatedTemplate> */}
@@ -54,12 +38,7 @@ const MicrosoftLogin1 = () => {
 
           </div>
         </section>
-      {/* </AuthenticatedTemplate>
-      <UnauthenticatedTemplate>
-        <button onClick={handleRedirect}>
-          Sign In
-        </button>
-      </UnauthenticatedTemplate> */}
+
 
     </>
 
