@@ -1,0 +1,30 @@
+{
+  "files": {
+    "main.css": "/static/css/main.48d0f34f.css",
+    "main.js": "/static/js/main.e5522fd7.js",
+    "static/media/logo1.svg": "/static/media/logo1.09e609f4a35eec78f4091e019ff4a7c6.svg",
+    "static/media/riska-logo.svg": "/static/media/riska-logo.a047d4b1b6f634af260a5f3928ea8ecd.svg",
+    "static/media/guardian.svg": "/static/media/guardian.0d9a9c0a8b23eeeffc521bde8ecf2ce6.svg",
+    "static/media/icon4.svg": "/static/media/icon4.8e6fc7cde3d7a1a6432fe8db6508de2c.svg",
+    "static/media/icon5.svg": "/static/media/icon5.6800d9ace64ce2d7182ce00b0539d9aa.svg",
+    "static/media/icon1.svg": "/static/media/icon1.639995cb175e737ed7195fc29997929f.svg",
+    "static/media/bag-suite.svg": "/static/media/bag-suite.b46c8164562e0584d0cbad2cbdf423f3.svg",
+    "static/media/identity-shape.svg": "/static/media/identity-shape.5a34a3b3df54dea874318ffa72e41362.svg",
+    "static/media/out.svg": "/static/media/out.2bfb645d2dcc30702c8fedae9bbaa549.svg",
+    "static/media/lock.svg": "/static/media/lock.e8b8eea22d2ec649b7b120633f98a6f0.svg",
+    "index.html": "/index.html",
+    "static/media/identity-icon.svg": "/static/media/identity-icon.abbdc1bde5c1d5ca52588777bd9420dd.svg",
+    "static/media/subtract.svg": "/static/media/subtract.a9c73211b29664448d88898eb6913b6c.svg",
+    "static/media/icon2.svg": "/static/media/icon2.0cfcc6f81c4feddb5600af182debae23.svg",
+    "static/media/icon3.svg": "/static/media/icon3.26a8d1db3624f83702ade9da6686517d.svg",
+    "static/media/user-icon.svg": "/static/media/user-icon.134c136f67404fbaf5e7f6aa6696ac6c.svg",
+    "static/media/user.svg": "/static/media/user.67cd0a14ba3ca4079460a48b308adfd0.svg",
+    "static/media/white-arrow.svg": "/static/media/white-arrow.60175208d717091bb9a276fed92ffd63.svg",
+    "main.48d0f34f.css.map": "/static/css/main.48d0f34f.css.map",
+    "main.e5522fd7.js.map": "/static/js/main.e5522fd7.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.48d0f34f.css",
+    "static/js/main.e5522fd7.js"
+  ]
+}
