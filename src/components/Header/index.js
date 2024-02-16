@@ -7,11 +7,27 @@ import UserImgIcon from "../../assets/images/new/user-icon.svg"
 
 
 import { useAuth0 } from '@auth0/auth0-react';
+import { API_BASE_URL } from '../../lib/constant'
+import axios from 'axios'
 
 const Header = () => {
   const { logout } = useAuth0();
   const [name, setName] = useState(localStorage.getItem("username"))
-
+  const changePasswordFun = async () => {
+    let useremail = localStorage.getItem("authemail");
+    try {
+      const payload = {
+          email: useremail,
+      };
+      const response = await axios.post(
+          `${API_BASE_URL}/user/changepassword`,
+          payload
+      );
+      console.log(response.data); 
+  } catch (error) {
+      console.error('Error occurred:', error);
+  }
+};
   return (
     <>
       <header>
@@ -22,8 +38,8 @@ const Header = () => {
           <button className="btn dropdown-toggle d-none d-xl-block" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false"><b>Welcome</b> {name}</button>
           <div className="d-block d-xl-none" data-bs-toggle="dropdown" aria-expanded="false"><img src={UserImgIcon} alt="" /></div>
           <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-            <li><a className="dropdown-item" href="#"><img src={UserImg} alt="" /> Account</a></li>
-            <li><a className="dropdown-item" href="#"><img src={LockImg} alt="" /> Change Password</a></li>
+            <li><a className="dropdown-item" href="#" ><img src={UserImg} alt="" /> Account</a></li>
+            <li><a className="dropdown-item" href="#" onClick={changePasswordFun}><img src={LockImg} alt="" /> Change Password</a></li>
             <li onClick={() => {
               logout({ returnTo: window.location.origin });
               localStorage.clear("token");

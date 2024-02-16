@@ -4,6 +4,7 @@ import Header from "../../components/Header";
 import IconImg from "../../assets/images/new/identity-icon.svg";
 import IconImg1 from "../../assets/images/new/bag-suite.svg";
 import arrow from "../../assets/images/new/white-arrow.svg";
+import securitycheck from "../../assets/images/new/security-checklist.svg";
 
 import axios from "axios";
 import { API_BASE_URL } from "../../lib/constant";
@@ -82,10 +83,14 @@ const SecurityHealth = () => {
             email: email,
         };
         const response1 = await axios.post(
+            `${API_BASE_URL}/user/updatesecurity`,
+            secPayload
+        );
+        const response2 = await axios.post(
             `${API_BASE_URL}/user/getsecurity`,
             payload
         );
-        setSecurityData(response1.data.data);
+        setSecurityData(response2.data.data);
     };
     return (
         <>
@@ -255,7 +260,7 @@ const SecurityHealth = () => {
                             </>
                         )}
                         <h2 className="mb-4 icon-heading mt-115">
-                            <img src="images/security-checklist.svg" alt="" />
+                            <img  src={securitycheck} alt="" />
                             Security checklist
                         </h2>
                         {loder ? (

@@ -62,7 +62,7 @@ export const CustomerDashboard = () => {
         try {
             await getAzureToken()
             const azureToken=  localStorage.getItem("azureToken")
-            console.log(azureToken,"azureToken")
+            //console.log(azureToken,"azureToken")
             const payload = {
                 token: azureToken,
             };
@@ -157,12 +157,12 @@ export const CustomerDashboard = () => {
                                                                             0}
                                                                     </div>
                                                                     <div className="readmore text-center mt-4">
-                                                                        <a href="#">
+                                                                        
                                                                             View
                                                                             security
                                                                             health{" "}
                                                                             <i className="fa-solid fa-chevron-right"></i>
-                                                                        </a>
+                                                                       
                                                                     </div>
                                                                 </div>
                                                             </div>

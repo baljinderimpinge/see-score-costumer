@@ -22,6 +22,7 @@ const ApexChart = ({ getLastUpdate }) => {
 
         setChartData({
             options: {
+                colors:['#6ba364', '#E91E63', '#9C27B0'],
                 chart: {
                     id: "apexchart-example",
                     toolbar: {
@@ -41,11 +42,11 @@ const ApexChart = ({ getLastUpdate }) => {
                 },
                 yaxis: {
                     labels: {
-                        show: false,
+                        show: true,
                     },
                 },
                 grid: {
-                    show: false,
+                    show: true,
                 },
 
                 markers: {
@@ -54,14 +55,14 @@ const ApexChart = ({ getLastUpdate }) => {
                         {
                             seriesIndex: 0,
                             dataPointIndex: data?.data?.data.length - 1, // Adjust this index as needed for your data
-                            fillColor: "#0000ff",
-                            strokeColor: "#fff",
+                            fillColor: "#6ba364",
+                            strokeColor: "#6ba364",
                             size: 10, // Customize the marker size and appearance as needed
                         },
                     ],
                 },
             },
-
+            
             series: [
                 {
                     name: "Score",

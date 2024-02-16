@@ -36,7 +36,7 @@ export const LoderPage = () => {
                 let localToken = localStorage.getItem("token")
                 if(!localToken){
                     const idToken = await getIdTokenClaims();
-                    localToken=idToken.__raw
+                    localToken=idToken?.__raw
                 }
                 if (localToken) {
                     let payload = {
@@ -64,6 +64,7 @@ export const LoderPage = () => {
                         toast.success("Login successfully!", {
                             position: toast.POSITION.TOP_RIGHT,
                         });
+                        //console.log(result.data?.data)
                         localStorage.setItem("token", localToken);
                         localStorage.setItem(
                             "username",
@@ -77,7 +78,10 @@ export const LoderPage = () => {
                             "userId",
                             result.data.data.user_id
                         );
-
+                        localStorage.setItem(
+                            "authemail",
+                            result.data?.data?.email
+                        );
                         const data = await axios.get(
                             `${API_BASE_URL}/user/get-azure-token/${result.data.data.user_id}`
                         );
