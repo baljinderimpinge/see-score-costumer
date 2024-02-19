@@ -334,19 +334,7 @@ const SecurityHealth = () => {
                                                         <p>
                                                             <b>Description</b>
                                                             <br />
-                                                            Assign more than one
-                                                            user a global
-                                                            administrator role
-                                                            in your
-                                                            organization. Go to
-                                                            Microsoft Entra ID{" "}
-                                                            {">"} Roles and
-                                                            administrators and
-                                                            select the Global
-                                                            administrator role
-                                                            in the table. Then
-                                                            click Add
-                                                            assignments."
+                                                            {item?.description}
                                                         </p>
                                                         <button
                                                             type="button"

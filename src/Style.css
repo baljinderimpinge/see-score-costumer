@@ -388,10 +388,12 @@ header .dropdown .btn {
     background-color: #1e2332;
     width: 292px;
     padding: 60px;
-    height: 100vh;
+    height: 100%;
     position: fixed;
     top: 0;
+    bottom: 0;
     left: 0;
+    margin: auto;
 }
 
 .sidebar ul {
@@ -423,6 +425,7 @@ header .dropdown .btn {
 
 main {
     margin-left: 292px;
+    width: calc(100% - 292px);
 }
 
 .accordion-item {
@@ -527,6 +530,7 @@ footer {
     }
     main {
         margin-left: 85px;
+        width: calc(100% - 85px);
     }
     .ptb-85 {
         padding-bottom: 40px;
@@ -543,6 +547,7 @@ footer {
         min-width: 300px;
         padding: 15px;
     }
+    .first-score{max-width: 100%;}
 }
 
 @media only screen and (max-width: 767px) {

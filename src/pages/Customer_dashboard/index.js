@@ -62,14 +62,19 @@ export const CustomerDashboard = () => {
         try {
             await getAzureToken()
             const azureToken=  localStorage.getItem("azureToken")
+            const email=  localStorage.getItem("email")
+
             //console.log(azureToken,"azureToken")
             const payload = {
                 token: azureToken,
+                email:email
             };
             const data = await axios.post(
                 `${API_BASE_URL}/user/getScoreData`,
                 payload
             );
+
+            console.log(data, "************* data ***************")
             setUserRiskPolicy(data?.data?.data[0]);
             setFindingCount(data?.data?.findingCount);
             setLoder(true);
@@ -91,7 +96,6 @@ export const CustomerDashboard = () => {
         <>
             <>
                 <Sidebar />
-
                 <main>
                     <Header />
                     <div className="content-page">
