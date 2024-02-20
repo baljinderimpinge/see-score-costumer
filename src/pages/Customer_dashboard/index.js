@@ -13,7 +13,7 @@ import IdImg from "../../assets/images/new/identity-shape.svg";
 import styled from "@emotion/styled";
 import { ToastContainer } from "react-toastify";
 import { ClipLoader } from "react-spinners";
-
+import { useNavigate } from "react-router-dom";
 import ApexChart from "../../components/chart";
 import { getAzureToken } from "../../HOC/getToken";
 
@@ -51,7 +51,7 @@ export const CustomerDashboard = () => {
         backgroundRepeat: "no-repeat",
         backgroundPosition: "bottom",
     };
-
+    const navigate = useNavigate();
  
     useEffect(() => {
         getScoreData();
@@ -63,7 +63,9 @@ export const CustomerDashboard = () => {
             await getAzureToken()
             const azureToken=  localStorage.getItem("azureToken")
             const email=  localStorage.getItem("email")
-
+if(!azureToken){
+    navigate("/microsoft-login");
+}
             //console.log(azureToken,"azureToken")
             const payload = {
                 token: azureToken,
@@ -80,7 +82,7 @@ export const CustomerDashboard = () => {
             setLoder(true);
             setAccessTokenStatus(true);
         } catch (error) {
-            if (error.response.data.status === 401) {
+            if (error?.response?.data?.status === 401) {
             
                 setLoder(true);
                 setAccessTokenStatus(false);

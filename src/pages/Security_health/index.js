@@ -8,6 +8,7 @@ import securitycheck from "../../assets/images/new/security-checklist.svg";
 
 import axios from "axios";
 import { API_BASE_URL } from "../../lib/constant";
+import { useNavigate } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import { ClipLoader } from "react-spinners";
 import styled from "@emotion/styled";
@@ -30,15 +31,21 @@ const FullPageLoader = styled.div`
     z-index: 1000;
 `;
 const SecurityHealth = () => {
+    const navigate = useNavigate();
     const [showTogel, setShowtoggel] = useState([]);
     const [recomendationData, setRecomendationData] = useState();
     const [securityData, setSecurityData] = useState();
     const [loder, setLoder] = useState(false);
+    console.log("-==-=-=-=-=-")
     useEffect(() => {
+        console.log("0000000000000000")
         const fetchData = async () => {
             try {
                 await getAzureToken()
                 const email = localStorage.getItem("email");
+                if(!email){
+                    navigate("/microsoft-login");
+                }
                 const payload = {
                     email: email,
                 };
@@ -52,11 +59,13 @@ const SecurityHealth = () => {
                     `${API_BASE_URL}/user/getsecurity`,
                     payload
                 );
-                setRecomendationData(response.data.data);
-                setSecurityData(response1.data.data);
-                setLoder(true);
+                    setRecomendationData(response.data.data);
+                    setSecurityData(response1.data.data);
+                    setLoder(true);
+               
             } catch (error) {
                 console.error("Error fetching data:", error);
+              
                 setLoder(true);
             }
         };
@@ -246,7 +255,9 @@ const SecurityHealth = () => {
                                         );
                                     })}
                             </div>
-                        ) : (
+                        ) 
+                        :
+                         (
                             <>
                                 {" "}
                                 <FullPageLoader>
@@ -258,7 +269,8 @@ const SecurityHealth = () => {
                                 </FullPageLoader>
                                 <ToastContainer />{" "}
                             </>
-                        )}
+                        )
+                        }
                         <h2 className="mb-4 icon-heading mt-115">
                             <img  src={securitycheck} alt="" />
                             Security checklist
