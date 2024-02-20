@@ -4,7 +4,8 @@ import UserImg from "../../assets/images/new/user.svg"
 import LockImg from "../../assets/images/new/lock.svg"
 import OutImg from "../../assets/images/new/out.svg"
 import UserImgIcon from "../../assets/images/new/user-icon.svg"
-
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 import { useAuth0 } from '@auth0/auth0-react';
 import { API_BASE_URL } from '../../lib/constant'
@@ -13,6 +14,11 @@ import axios from 'axios'
 const Header = () => {
   const { logout } = useAuth0();
   const [name, setName] = useState(localStorage.getItem("username"))
+  const show = () => {
+    toast.success("An email has been sent to reset your password, please check!", {
+      position: toast.POSITION.TOP_RIGHT,
+  });
+};
   const changePasswordFun = async () => {
     let useremail = localStorage.getItem("authemail");
     try {
@@ -28,6 +34,10 @@ const Header = () => {
       console.error('Error occurred:', error);
   }
 };
+const handleClick = () => {
+  changePasswordFun();
+  show();
+};
   return (
     <>
       <header>
@@ -39,7 +49,7 @@ const Header = () => {
           <div className="d-block d-xl-none" data-bs-toggle="dropdown" aria-expanded="false"><img src={UserImgIcon} alt="" /></div>
           <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
             <li><a className="dropdown-item" href="#" ><img src={UserImg} alt="" /> Account</a></li>
-            <li><a className="dropdown-item" href="#" onClick={changePasswordFun}><img src={LockImg} alt="" /> Change Password</a></li>
+            <li><a className="dropdown-item" href="#" onClick={handleClick}><img src={LockImg} alt="" /> Change Password</a></li>
             <li onClick={() => {
               logout({ returnTo: window.location.origin });
               localStorage.clear("token");

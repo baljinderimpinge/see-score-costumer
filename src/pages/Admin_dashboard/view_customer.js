@@ -16,6 +16,7 @@ export const ViewCustomer  = () => {
         const fetchData = async () => {
             try {
                 const response = await axios.get(`${API_BASE_URL}/admin/getallcustomers`);
+                console.log(response.data.data,"response.data.data")
                 setViewCustomerData(response.data.data)
             } catch (error) {
                 console.error('Error fetching data:', error);
@@ -68,27 +69,28 @@ export const ViewCustomer  = () => {
                                     <h2 className="accordion-header" id={accordionId}>
                                         <button onClick={() => show(item.id)} className={showTogel.includes(item.id) ? "accordion-button" : 'accordion-button collapsed'} type="button" data-bs-toggle="collapse"
                                             data-bs-target={`#${collapseId}`} aria-expanded={showTogel.includes(item.id)} aria-controls={collapseId}>
-                                            <span className="txt">{item?.name}</span>  <span className="btn btn-primary">impersonate</span>
+                                            <span className="txt">{item?.bussinessName}</span>  
+                                            {/* <span className="btn btn-primary">impersonate</span> */}
                                         </button>
                                     </h2>
                                     <div id={collapseId} className={showTogel.includes(item.id) ? "accordion-collapse collapse show" : "accordion-collapse collapse"} aria-labelledby={accordionId} data-bs-parent="#accordionExample">
                                         <div className="accordion-body">
-                                            <p><b>Insights</b><br />
-                                                {item?.insights}<br /><br /></p>
+                                            <p><b>Name</b><br />
+                                                {item?.name}<br /><br /></p>
 
-                                            <p> <b>Description</b><br />
-                                                {item?.benefits}
+                                            <p> <b>Email</b><br />
+                                                {item?.email}
                                                 <br /><br />
                                             </p>
 
-                                            <b>Resolution steps</b>
-                                            {item && item?.actionSteps?.length > 0 && item.actionSteps.map((value, index) => {
-                                                return (
-                                                    <p>
-
-                                                        {value.text}</p>
-                                                )
-                                            })}
+                                            <p> <b>Contact</b><br />
+                                                {item?.phone}
+                                                <br /><br />
+                                            </p>
+                                            <p> <b>Website</b><br />
+                                                {item?.website}
+                                                <br /><br />
+                                            </p>
 
                                         </div>
                                     </div>
