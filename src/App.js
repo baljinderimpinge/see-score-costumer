@@ -23,11 +23,13 @@ import { LoderPage } from "./pages/Customer_dashboard/loder.page";
 import { useEffect } from "react";
 import axios from "axios";
 import { API_BASE_URL } from "./lib/constant";
+import { ToastContainer } from "react-toastify";
 
 
 function App() {
     return (
         <React.Fragment>
+            <ToastContainer/>
             <Routes>
                 <Route path="/" element={<LoginButton />} />
                 <Route

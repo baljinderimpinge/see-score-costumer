@@ -7,6 +7,8 @@ import { API_BASE_URL } from '../../lib/constant';
 import lockImage from '../../assets/images/lock.svg';
 import outImage from '../../assets/images/out.svg';   
 import { useAuth0 } from "@auth0/auth0-react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import HeadImg from "../../assets/images/new/guardian.svg";
 
 function AdminDashBoard() {
@@ -21,6 +23,12 @@ function AdminDashBoard() {
   const [contactNumber, setContactNumber] = useState('');
   const [contactEmail, setContactEmail] = useState('');
   const [name, setName] = useState('')
+  const show = () => {
+    console.log("0-0----0-0-0")
+    toast.success(`Email has been sent to the ${contactEmail}`, {
+      position: toast.POSITION.TOP_RIGHT,
+  });
+};
 
   useEffect(() => {
     if (user) {
@@ -39,8 +47,9 @@ function AdminDashBoard() {
         contactNumber,
         contactEmail,
       });
-
+console.log(response.status,"response.status")
       if (response.status == 200) {
+        console.log("===========")
         setBusinessName("")
         setBusinessAddress("")
         setWebsite("")
@@ -48,7 +57,9 @@ function AdminDashBoard() {
         setContactName("")
         setContactNumber("")
         setContactEmail("")
+        show();
       }
+     
     } catch (error) {
       console.error('API Error:', error);
     }

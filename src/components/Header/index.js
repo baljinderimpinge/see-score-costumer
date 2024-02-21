@@ -35,11 +35,16 @@ const Header = () => {
   }
 };
 const handleClick = () => {
+  console.log("-=-=-=-=-")
   changePasswordFun();
-  show();
+  toast.success("An email has been sent to reset your password, please check!", {
+    position: toast.POSITION.TOP_RIGHT,
+});
+  // show();
 };
   return (
     <>
+    <ToastContainer/>
       <header>
         <div className="top-name">
           <img src={MainImg} alt="" /> Guardian
@@ -58,6 +63,7 @@ const handleClick = () => {
         </div>
        
       </header>
+      
     </>
 
   )
