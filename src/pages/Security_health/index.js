@@ -96,12 +96,12 @@ const SecurityHealth = () => {
                 const headers = {
                     'Authorization': `Bearer ${token}`
                 }; 
-        const response1 = await axios.post(
+        const response1 = await axios.put(
             `${API_BASE_URL}/user/updatesecurity`,
-            { headers: headers },
-            secPayload
+            secPayload,
+            { headers: headers }
         );
-        const response2 = await axios.post(
+        const response2 = await axios.get(
             `${API_BASE_URL}/user/getsecurity`,
             { headers: headers }
         );
