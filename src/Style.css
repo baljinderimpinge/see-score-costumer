@@ -355,6 +355,7 @@ header .dropdown .btn {
 .icon-btn {
     display: inline-flex;
     gap: 13px;
+    align-items: center;
 }
 
 .icon-heading {
@@ -366,6 +367,8 @@ header .dropdown .btn {
     background-color: #ff0000;
     color: #fff;
 }
+
+.score-number.text-start.chart, .customchart div{width:100%; display: block;}
 
 .btn-orange {
     background-color: #ff6b00;

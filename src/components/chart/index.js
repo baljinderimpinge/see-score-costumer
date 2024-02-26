@@ -12,12 +12,14 @@ const ApexChart = ({ getLastUpdate }) => {
 
     const getChartData = async () => {
         const getEmail = localStorage.getItem("email");
-        const payload = {
-            email: getEmail,
-        };
-        const data = await axios.post(
+        let token =  localStorage.getItem("jwttoken")
+        console.log(token,"jfjejiejiejrf1111111111111111111")
+        const headers = {
+            'Authorization': `Bearer ${token}`
+        }; 
+        const data = await axios.get(
             `${API_BASE_URL}/user/graphdata`,
-            payload
+            { headers: headers }
         );
 
         setChartData({
@@ -49,18 +51,18 @@ const ApexChart = ({ getLastUpdate }) => {
                     show: true,
                 },
 
-                markers: {
-                    size: 0, // Disables markers for all points
-                    discrete: [
-                        {
-                            seriesIndex: 0,
-                            dataPointIndex: data?.data?.data.length - 1, // Adjust this index as needed for your data
-                            fillColor: "#6ba364",
-                            strokeColor: "#6ba364",
-                            size: 10, // Customize the marker size and appearance as needed
-                        },
-                    ],
-                },
+                // markers: {
+                //     size: 0, // Disables markers for all points
+                //     // discrete: [
+                //     //     {
+                //     //         seriesIndex: 0,
+                //     //         dataPointIndex: data?.data?.data.length - 1, // Adjust this index as needed for your data
+                //     //         //fillColor: "#6ba364",
+                //     //         //strokeColor: "#6ba364",
+                //     //         size: 10, // Customize the marker size and appearance as needed
+                //     //     },
+                //     // ],
+                // },
             },
             
             series: [

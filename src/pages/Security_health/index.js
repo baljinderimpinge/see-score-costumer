@@ -46,19 +46,21 @@ const SecurityHealth = () => {
                 if(!email){
                     navigate("/microsoft-login");
                 }
-                const payload = {
-                    email: email,
-                };
+                let token =  localStorage.getItem("jwttoken")
+                const headers = {
+                    'Authorization': `Bearer ${token}`
+                }; 
 
-                const response = await axios.post(
+                const response = await axios.get(
                     `${API_BASE_URL}/user/recomen`,
-                    payload
+                    { headers: headers }
                 );
 
-                const response1 = await axios.post(
+                const response1 = await axios.get(
                     `${API_BASE_URL}/user/getsecurity`,
-                    payload
+                    { headers: headers }
                 );
+                console.log(response.data.data,"response.data.data")
                     setRecomendationData(response.data.data);
                     setSecurityData(response1.data.data);
                     setLoder(true);
@@ -83,7 +85,6 @@ const SecurityHealth = () => {
     let companyname = localStorage.getItem("companyName");
     const securityStatusChangeFun = async (securityid, email) => {
         const secPayload = {
-            email: email,
             securityChecklistId: securityid,
             status: 2,
         };
@@ -91,13 +92,18 @@ const SecurityHealth = () => {
         const payload = {
             email: email,
         };
+        let token =  localStorage.getItem("jwttoken")
+                const headers = {
+                    'Authorization': `Bearer ${token}`
+                }; 
         const response1 = await axios.post(
             `${API_BASE_URL}/user/updatesecurity`,
+            { headers: headers },
             secPayload
         );
         const response2 = await axios.post(
             `${API_BASE_URL}/user/getsecurity`,
-            payload
+            { headers: headers }
         );
         setSecurityData(response2.data.data);
     };
@@ -360,9 +366,11 @@ const SecurityHealth = () => {
                                                         >
                                                             Mark as complete{" "}
                                                             <img
-                                                                src="images/white-arrow.svg"
-                                                                alt=""
-                                                            />
+                                                                                            src={
+                                                                                                arrow
+                                                                                            }
+                                                                                            alt=""
+                                                                                        />
                                                         </button>
                                                     </div>
                                                 </div>

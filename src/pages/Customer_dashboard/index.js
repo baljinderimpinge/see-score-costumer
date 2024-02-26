@@ -67,13 +67,17 @@ if(!azureToken){
     navigate("/microsoft-login");
 }
             //console.log(azureToken,"azureToken")
-            const payload = {
-                token: azureToken,
-                email:email
+            // const payload = {
+            //     token: azureToken,
+            //     email:email
+            // };
+            let token =  localStorage.getItem("jwttoken")
+            const headers = {
+                'Authorization': `Bearer ${token}`
             };
-            const data = await axios.post(
+            const data = await axios.get(
                 `${API_BASE_URL}/user/getScoreData`,
-                payload
+                { headers: headers }
             );
 
             console.log(data, "************* data ***************")
@@ -180,11 +184,14 @@ if(!azureToken){
                                                                 Identity score
                                                                 trend
                                                             </h5> 
+                                                            <div className="customchart">
                                                             <ApexChart
                                                                 getLastUpdate={
                                                                     getLastUpdate
                                                                 }
                                                             />
+                                                            </div>
+                                                            
                                                         </div>
                                                     </div>
                                                 </div>

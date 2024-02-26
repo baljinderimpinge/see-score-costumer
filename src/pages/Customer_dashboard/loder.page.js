@@ -34,7 +34,9 @@ export const LoderPage = () => {
         const fetchAndLogTokens = async () => {
             try {
                 let localToken = localStorage.getItem("token")
+               
                 if(!localToken){
+                    console.log(user,"jdhjdjdjdh")
                     const idToken = await getIdTokenClaims();
                     localToken=idToken?.__raw
                 }
@@ -46,11 +48,14 @@ export const LoderPage = () => {
                         `${API_BASE_URL}/user/login`,
                         payload
                     );
+
+                    console.log(result?.data?.data,"result?.data?.data")
                     if (result?.data?.data?.role === "Admin") {
                         toast.success("Login successfully!", {
                             position: toast.POSITION.TOP_RIGHT,
                         });
                         localStorage.setItem("token", localToken);
+                       
                         localStorage.setItem(
                             "username",
                             result?.data?.data?.app_metadata?.name
@@ -78,6 +83,7 @@ export const LoderPage = () => {
                             "userId",
                             result.data.data.user_id
                         );
+                        localStorage.setItem("jwttoken", result?.data?.data?.jwttoken);
                         localStorage.setItem(
                             "authemail",
                             result.data?.data?.email
