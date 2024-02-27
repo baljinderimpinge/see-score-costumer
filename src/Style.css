@@ -506,6 +506,9 @@ footer {
     display: block;
 }
 
+.chart .apexcharts-tooltip{max-width: 150px;}
+.chart .apexcharts-xaxistooltip{max-width: 150px;}
+
 /**********************responsive***********************/
 
 @media only screen and (max-width: 1280px) {
