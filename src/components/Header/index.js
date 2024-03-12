@@ -14,6 +14,7 @@ import axios from 'axios'
 const Header = () => {
   const { logout } = useAuth0();
   const [name, setName] = useState(localStorage.getItem("username"))
+  console.log(name,"-=-=--=-")
   const show = () => {
     toast.success("An email has been sent to reset your password, please check!", {
       position: toast.POSITION.TOP_RIGHT,
@@ -57,7 +58,7 @@ const handleClick = () => {
             <li><a className="dropdown-item" href="#" onClick={handleClick}><img src={LockImg} alt="" /> Change Password</a></li>
             <li onClick={() => {
               logout({ returnTo: window.location.origin });
-              localStorage.clear("token");
+              localStorage.clear();
             }}> <a className="dropdown-item" href="#"><img src={OutImg} alt="" /> Logout</a></li>
           </ul>
         </div>

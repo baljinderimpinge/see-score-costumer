@@ -13,11 +13,16 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 const userId = localStorage.getItem("userId")
 
 
-
+let token =  localStorage.getItem("jwttoken")
+                const headers = {
+                    'Authorization': `Bearer ${token}`
+                }; 
 var getAzureToken = async () => {
     const data = await axios.get(
-        `${API_BASE_URL}/user/get-azure-token/${userId}`
+        `${API_BASE_URL}/user/get-azure-token`,
+        { headers: headers }
     );
+    console.log("herer11111")
     if (data.data.status === 200) {
         localStorage.setItem(
             "azureToken",

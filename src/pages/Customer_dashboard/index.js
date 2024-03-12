@@ -40,6 +40,7 @@ export const CustomerDashboard = () => {
     const [accessTokenStatus, setAccessTokenStatus] = useState(false);
     const [userRiskPolicy, setUserRiskPolicy] = useState();
     const [findingCount, setFindingCount] = useState();
+    const [userCount, setUserCount] = useState();
     // const [azureToken, setAzureToken] = useState(
        
     // );
@@ -82,7 +83,8 @@ if(!azureToken){
 
             console.log(data, "************* data ***************")
             setUserRiskPolicy(data?.data?.data[0]);
-            setFindingCount(data?.data?.findingCount);
+            setFindingCount(data?.data?.findingCount)
+            setUserCount(data?.data?.usercount);;
             setLoder(true);
             setAccessTokenStatus(true);
         } catch (error) {
@@ -148,7 +150,7 @@ if(!azureToken){
                                                             </h5>
                                                             <div className="con">
                                                                 <div className="percentage-num">
-                                                                    {userRiskPolicy?.total ||
+                                                                    {userCount ||
                                                                         0}
                                                                 </div>
                                                             </div>

@@ -22,7 +22,9 @@ function AdminDashBoard() {
   const [contactName, setContactName] = useState('');
   const [contactNumber, setContactNumber] = useState('');
   const [contactEmail, setContactEmail] = useState('');
-  const [name, setName] = useState('')
+  // const [name, setName] = useState('')
+  const [name, setName] = useState(localStorage.getItem("username"))
+  console.log(name,"-----")
   const show = () => {
     console.log("0-0----0-0-0")
     toast.success(`Email has been sent to the ${contactEmail}`, {
@@ -31,9 +33,9 @@ function AdminDashBoard() {
 };
 
   useEffect(() => {
-    if (user) {
-      setName(user.name);
-    }
+    // if (user) {
+    //   setName(user.name);
+    // }
   }, [user]);
 
   const handleSubmit = async () => {
@@ -80,7 +82,7 @@ console.log(response.status,"response.status")
               <li><a className="dropdown-item" href="#"><img src={lockImage} /> Change Password</a></li>
               <li><a className="dropdown-item" href="#" onClick={() => {
                 logout({ returnTo: window.location.origin });
-                localStorage.clear("token");
+                localStorage.clear();
               }} ><img src={outImage} /> Logout</a></li>
             </ul>
           </div>

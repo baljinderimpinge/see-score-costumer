@@ -65,7 +65,7 @@ export default function Sidebar(props) {
                                 <li><Link to="/help"> <img src={Icon5} alt="" /><span>Help</span></Link></li>
                                 <li onClick={() => {
               logout({ returnTo: window.location.origin });
-              localStorage.clear("token");
+              localStorage.clear();
             }}> <Link><img src={Icon6} alt="" /><span>Logout</span></Link></li>
                                 
                                 {/* <li onClick={()=> azureLogout()} ><Link><img src={Icon6} alt="" /><span>Logout</span></Link></li> */}

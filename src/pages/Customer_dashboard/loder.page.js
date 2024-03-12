@@ -40,6 +40,7 @@ export const LoderPage = () => {
                     const idToken = await getIdTokenClaims();
                     localToken=idToken?.__raw
                 }
+                console.log(localToken,"localToken")
                 if (localToken) {
                     let payload = {
                         token: localToken,
@@ -58,7 +59,7 @@ export const LoderPage = () => {
                        
                         localStorage.setItem(
                             "username",
-                            result?.data?.data?.app_metadata?.name
+                            result?.data?.data?.nickname
                         );
                         localStorage.setItem(
                             "role",
@@ -73,7 +74,7 @@ export const LoderPage = () => {
                         localStorage.setItem("token", localToken);
                         localStorage.setItem(
                             "username",
-                            result?.data?.data?.app_metadata?.name
+                            result?.data?.data?.nickname
                         );
                         localStorage.setItem(
                             "companyName",
@@ -88,10 +89,15 @@ export const LoderPage = () => {
                             "authemail",
                             result.data?.data?.email
                         );
+                        let token =  localStorage.getItem("jwttoken")
+                const headers = {
+                    'Authorization': `Bearer ${token}`
+                }; 
                         const data = await axios.get(
-                            `${API_BASE_URL}/user/get-azure-token/${result.data.data.user_id}`
+                            `${API_BASE_URL}/user/get-azure-token`,
+                            { headers: headers }
                         );
-
+                        console.log("herer33333")
                         if (data.data.status === 200) {
                             localStorage.setItem(
                                 "azureToken",

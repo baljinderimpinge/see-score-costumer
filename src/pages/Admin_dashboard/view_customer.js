@@ -11,7 +11,8 @@ export const ViewCustomer  = () => {
     const { logout, isAuthenticated, user } = useAuth0();
     const [viewCustomerData, setViewCustomerData] = useState()
     const [showTogel, setShowtoggel] = useState([])
-
+    const [name, setName] = useState(localStorage.getItem("username"))
+    console.log(name,"-----")
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -44,13 +45,13 @@ export const ViewCustomer  = () => {
           <div class="top-name">
             <img src={HeadImg} alt="" /> Guardian Admin Portal
           </div>
-          <div className="dropdown"><button className="btn dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false"><b>Welcome</b> ADMIN</button>
+          <div className="dropdown"><button className="btn dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false"><b>Welcome</b> {name}</button>
             <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
               <li><a className="dropdown-item" href="#"><img src={userImage} /> Account</a></li>
               <li><a className="dropdown-item" href="#"><img src={lockImage} /> Change Password</a></li>
               <li><a className="dropdown-item" href="#" onClick={() => {
                 logout({ returnTo: window.location.origin });
-                localStorage.clear("token");
+                localStorage.clear();
               }} ><img src={outImage} /> Logout</a></li>
             </ul>
           </div>
